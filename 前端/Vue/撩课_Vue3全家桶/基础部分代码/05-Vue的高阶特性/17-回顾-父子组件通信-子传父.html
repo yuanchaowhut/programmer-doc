@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <!--父组件-->
+  <div id="app" style="background-color: blue; width: 300px; height: 300px;padding: 20px;">
+     <lk-box @box-click="boxFunc"></lk-box>
+  </div>
+
+  <!--子组件-->
+  <template id="box">
+      <div style="background-color: red; width: 200px; height: 200px;">
+          <button @click="btnClick">点我</button>
+      </div>
+  </template>
+  <script src="js/vue.js"></script>
+  <script>
+    // 子组件
+    const Box = {
+       template: '#box',
+       methods:{
+         btnClick(){
+            alert('点击了');
+            // 发射自定义事件
+            /*this.$emit('box-click', '撩课学院');*/
+            /*this.$emit('box-click', '撩课学院', 'itlike.com', '2121');*/
+            const dataObj = {
+               name: '撩课',
+               intro: 'like IT, itLike'
+            };
+            this.$emit('box-click', dataObj);
+         }
+       }
+    };
+
+
+    // 父组件
+    const app = Vue.createApp({
+      data() {
+        return {
+          msg: '撩课学院'
+        }
+      },
+      components:{
+        'lk-box': Box
+      },
+      methods:{
+        /*boxFunc(item1, item2, item3){
+           console.log('子组件中的按钮发生了点击!');
+           console.log(item1, item2, item3);
+        }*/
+
+        boxFunc(item){
+          console.log('子组件中的按钮发生了点击!');
+          console.log(item);
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

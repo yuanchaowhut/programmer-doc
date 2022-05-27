@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+    }
+
+    @keyframes shake-from {
+      0% {
+        opacity: 0;
+        transform: translateX(0);
+      }
+      50% {
+        opacity: 0.5;
+        transform: translateX(50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes shake-to {
+      0% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      50% {
+        opacity: 0.5;
+        transform: translateX(50px);
+      }
+      100% {
+        opacity: 0;
+        transform: translateX(0);
+      }
+    }
+
+    .lk-enter-active {
+      animation: 2s shake-from;
+    }
+
+    .lk-leave-active {
+      animation: 2s shake-to;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <h1>{{ msg }}</h1>
+</div>
+<script src="js/vue.js"></script>
+<script>
+  const app = Vue.createApp({
+    data() {
+      return {
+        msg: '撩课学院',
+        flag: false
+      }
+    },
+    template: `
+        <div>
+           <transition name="lk">
+               <div class="box" v-show="flag">{{msg}}</div>
+           </transition>
+           <transition>
+               <div class="box" v-show="flag">{{msg}}</div>
+           </transition>
+           <transition>
+               <div class="box" v-show="flag">{{msg}}</div>
+           </transition>
+           <transition>
+               <div class="box" v-show="flag">{{msg}}</div>
+           </transition>
+           <button @click="flag = !flag">显示/隐藏</button>
+        </div>
+      `
+  }).mount('#app');
+</script>
+</body>
+</html>

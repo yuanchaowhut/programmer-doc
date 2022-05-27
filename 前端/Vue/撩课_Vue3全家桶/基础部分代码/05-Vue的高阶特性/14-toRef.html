@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ref</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = Vue.createApp({
+      setup(props, context){
+         // 1. 引入reactive
+         const {reactive, toRefs, toRef} = Vue;
+         let pObj = reactive({name: '张三', sex: '男'});
+
+         let {name, sex} = toRefs(pObj);
+         let age = toRef(pObj, 'age');
+
+         setTimeout(()=>{
+           name.value = '小撩';
+           sex.value = '女';
+           age.value = 100;
+         }, 2000);
+
+         return {
+           name,
+           sex,
+           age
+         }
+      },
+      template: `
+        <div>
+           <h1>姓名: {{ name }}, 性别: {{sex}}, 年龄: {{age}}</h1>
+        </div>
+      `
+    }).mount('#app');
+  </script>
+</body>
+</html>

@@ -1,0 +1,260 @@
+@import "reset";
+@import "_variables";
+@import "_elements.scss";
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+/*공통속성*/
+* {
+  box-sizing: border-box;
+}
+p {
+  font-size: $fontMedium;
+}
+a.btn {
+  @extend %btn;
+  width:fit-content;
+  line-height:1.3;
+}
+
+button{
+  background: transparent; 
+  border:none;
+  outline:none;
+  padding:15px;
+  i{
+    font-size:35px;
+    text-align:center;
+    position: absolute;
+    .fas.fa-times{color:white;}
+  }
+}
+/*Element별*/
+body {
+  height: 590vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  position:relative;
+  display:flex;
+  flex-direction: column;
+}
+.wrapper{
+  display:flex;
+  justify-content: space-between;
+  width:calc(100% + 520px);
+  position: absolute; 
+  top:0;
+  left:-520px;
+  transition:left .7s ease-in-out;
+  &.activeMenu{
+    left:0;
+    transition:left .7s ease-in-out;
+  }
+}
+nav{
+background-color: black;
+width:520px;
+height:100vh;
+padding :140px 0 0 90px;
+position:fixed;
+z-index:190;
+display:flex;
+flex-direction: column;
+justify-content: space-between; 
+  .openThis{
+    .fas.fa-times{opacity:0;}
+    .fas.fa-bars{opacity:1;}
+  }
+  ul{
+    margin-bottom: 30px;
+    li{
+      line-height:1.3;
+      a{
+        @extend %link;
+        font-size: 32px;
+      }
+    }
+  }
+  .info-box{
+    color:white;
+    display:flex;
+    flex-direction: column;
+    h2{
+      margin-bottom:40px;
+      font-size: 22px;
+    }
+    a{
+      @extend %link;
+      line-height:1.4;
+    }
+    span{
+    font-family: 'Fjalla One', sans-serif;
+    font-size:28px; 
+    margin: 40px 0;
+    }
+  }
+  &.activeNav{
+    .openThis{
+      .fas.fa-times{opacity:1; transition:opacity 0.7s ease-in-out;}
+      .fas.fa-bars{opacity:0; transition:opacity 0.7s ease-in-out;}}
+  }
+  
+}
+/*main*/
+.main-wrapper{
+  width:calc(100% - 520px);
+  height:590vh;
+  margin-left:520px;
+  main {
+    grid-column-start: 2;
+    width: 55%;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+}
+
+.hero {
+  width: 100%;
+  margin-top: 100px;
+  margin-bottom: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .hero__photo {
+    height: 70vh;
+    width: 90%;
+    background-image: url("https://source.unsplash.com/random");
+    background-size: cover;
+    background-position: center center;
+  }
+  h2 {
+    font-weight: 600;
+    font-size: 32px;
+    margin-top: 80px;
+    margin-bottom: 100px;
+  }
+  p {
+    font-size: $fontMedium;
+    span {
+      font-size: $fontMedium - 5px;
+      margin-right: 50px;
+      font-weight: 500;
+    }
+  }
+}
+.products {
+  display: grid;
+  grid-template-columns:repeat(2,1fr);
+  .product {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-start:span 2;
+    gap: 10px;
+    padding: 20px 0;
+    border-top: $border;
+    img {
+      width: 500px;
+      height: 370px;
+    }
+    &:nth-child(2),
+    &:nth-child(4) {
+      div {
+        order: 1;
+      }
+    }
+    &:nth-child(4),
+    &:nth-child(6){
+    border-bottom: $border;
+    }
+    p {
+      margin-bottom: 50px;
+    }
+    .product__category {
+      @extend %categoryTitle;
+    }
+    }
+  .line {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-start: span 2;
+    gap: 10px;
+    .product {
+      grid-template-columns: 1fr;
+      grid-column-start: span 1;
+      width:500px;
+      border-top:none !important;
+      .content{
+        display:flex;
+        flex-direction: column;
+        justify-content: space-between;
+        p {
+          font-size: 22px;
+          margin-top: 30px;
+        }
+      }
+    }
+  }
+}
+.links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  border-top: $border;
+  padding-top: 20px;
+  margin-top: 100px;
+  margin-bottom: 200px;
+  .link {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    h4 {
+      @extend %categoryTitle;
+      margin-bottom: 30px;
+    }
+    span {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+footer {
+  width: 100%;
+  height: 36vh;
+  padding: 30px 0 40px;
+  position: absolute;
+  bottom:0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #4d4c4c;
+  .footer__top {
+    width: 55%;
+    margin: 0 auto;
+    color: white;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 2fr;
+    span {
+      font-size: 38px;
+      font-family: 'Fjalla One', sans-serif;
+    }
+    ul {
+      width: 100%;
+      display: flex;
+      li {
+        margin-left: 100px;
+      }
+    }
+  }
+  .footer__bottom {
+    width: 55%;
+    margin: 0 auto;
+    li {
+      color: white;
+      line-height: 1.4;
+      a {
+        @extend %link;
+      }
+    }
+  }
+}

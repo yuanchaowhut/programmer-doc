@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    .box{
+      width: 100px;
+      height: 100px;
+      background-color: red;
+    }
+
+    @keyframes shake-from {
+      0% {
+        opacity: 0;
+        transform: translateX(0);
+      }
+      50% {
+        opacity: 0.5;
+        transform: translateX(50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes shake-to {
+      0% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      50% {
+        opacity: 0.5;
+        transform: translateX(50px);
+      }
+      100% {
+        opacity: 0;
+        transform: translateX(0);
+      }
+    }
+
+    .v-enter-from{
+      opacity: 0;
+    }
+    .v-enter-active{
+      /*过渡*/
+      transition: all 2s ease-in;
+      /*动画*/
+      animation: 12s shake-from;
+    }
+    .v-leave-active{
+      /*过渡*/
+      transition: all 2s ease-in;
+      /*动画*/
+      animation: 12s shake-to;
+    }
+    .v-enter-to{
+      opacity: 1;
+    }
+    .v-leave-to{
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>{{ msg }}</h1>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          msg: '撩课学院',
+          flag: false
+        }
+      },
+      /*
+       type="animation" 以自定义动画为主
+       type="transition" 以过渡为主
+
+       :duration="5000" 控制所有效果的时长
+      */
+      template: `
+        <div>
+           <transition :duration="{enter: 3000, leave: 100}">
+               <div class="box" v-show="flag">{{msg}}</div>
+           </transition>
+           <button @click="flag = !flag">显示/隐藏</button>
+        </div>
+      `
+    }).mount('#app');
+  </script>
+</body>
+</html>

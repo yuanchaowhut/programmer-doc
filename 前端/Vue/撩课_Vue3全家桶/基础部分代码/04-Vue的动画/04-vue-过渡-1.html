@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    .box{
+      width: 100px;
+      height: 100px;
+      background-color: red;
+    }
+    /*入场动画类*/
+    .v-enter-from{
+       opacity: 0;
+    }
+    .v-enter-active,
+    .v-leave-active{
+       transition: all 2s ease-in;
+    }
+    .v-enter-to{
+      opacity: 1;
+    }
+    /*离场动画类*/
+    /*.v-leave-from{
+       opacity: 1;
+    }*/
+    /*.v-leave-active{
+      transition: all 2s ease-in;
+    }*/
+    .v-leave-to{
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          msg: '撩课学院',
+          flag: false
+        }
+      },
+      template: `
+        <div>
+           <transition>
+               <div class="box" v-show="flag">{{msg}}</div>
+           </transition>
+           <button @click="flag = !flag">显示/隐藏</button>
+        </div>
+      `
+    }).mount('#app');
+  </script>
+</body>
+</html>

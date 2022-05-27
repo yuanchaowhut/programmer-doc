@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<div id="app">
+  <p>乔治·希尔</p>
+  <p>----1. 常规用法----</p>
+  <p>{{firstName + '·' + lastName}}</p>
+  <p>----2. 函数----</p>
+ <!-- <p>{{getFullName()}}</p>
+  <p>{{getFullName()}}</p>
+  <p>{{getFullName()}}</p>
+  <p>{{getFullName()}}</p>
+  <p>{{getFullName()}}</p>
+  <p>{{getFullName()}}</p>
+  <p>{{getFullName()}}</p>
+  <p>{{getFullName()}}</p>-->
+  <p>----3. 计算属性----</p>
+  <p>{{fullName}}</p>
+  <p>{{fullName}}</p>
+  <p>{{fullName}}</p>
+  <p>{{fullName}}</p>
+  <p>{{fullName}}</p>
+  <p>{{fullName}}</p>
+  <p>{{fullName}}</p>
+  <p>{{fullName}}</p>
+  <p>{{fullName}}</p>
+</div>
+<script src="js/vue.js"></script>
+<script>
+  const app = Vue.createApp({
+    data() {
+      return {
+        firstName: '乔治',
+        lastName: '希尔'
+      }
+    },
+    // 计算属性
+    computed:{
+      fullName(){
+         console.log('-----fullName()------');
+         return this.firstName + '·' + this.lastName;
+      }
+    },
+    methods:{
+      getFullName(){
+        console.log('-----getFullName()------');
+        return this.firstName + '·' + this.lastName;
+      }
+    }
+  }).mount('#app');
+</script>
+</body>
+</html>

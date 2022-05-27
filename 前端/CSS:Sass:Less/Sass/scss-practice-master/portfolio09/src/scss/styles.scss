@@ -1,0 +1,64 @@
+@import "reset";
+@import "_elements";
+@import "_variables";
+@import url("https://fonts.googleapis.com/css2?family=PT+Serif&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: "PT Serif", serif;
+  background-color: #f0efeb;
+  color: $black;
+  padding: 30px 40px;
+  line-height: 1.5;
+}
+header {
+  font-size: 56px;
+  letter-spacing: 1px;
+  margin-bottom: 175px;
+}
+
+.works {
+  margin-bottom: 80px;
+  .works__header {
+    @extend %grid;
+    padding-bottom: 10px;
+    span {
+      @extend %tinyText;
+    }
+  }
+  .works__list {
+    .works__work {
+      cursor: pointer;
+      font-size: 20px;
+      border-top: 1px solid $black;
+      padding: 20px 0;
+      @extend %grid;
+      &:hover {
+        font-style: italic;
+      }
+    }
+  }
+}
+.cv {
+  margin-bottom: 120px;
+}
+.cv,
+.about {
+  font-size: 30px;
+  span {
+    @extend %tinyText;
+  }
+}
+a {
+  color: $red;
+  &:hover {
+    font-style: italic;
+  }
+}
+
+.about {
+  padding-bottom: 80px;
+}

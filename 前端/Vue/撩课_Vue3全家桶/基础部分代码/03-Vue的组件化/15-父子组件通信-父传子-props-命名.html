@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<div id="app">
+  <!--<lk-box lkBrand="呵呵呵呵" :lkColleges="msg2"></lk-box>-->
+  <lk-box lk-brand="呵呵呵呵" :lk-colleges="msg2"></lk-box>
+</div>
+
+<template id="box">
+  <div>
+    <p>--------------------</p>
+    <h1>{{lkBrand}}</h1>
+    <ul>
+      <li v-for="item in lkColleges">{{item}}</li>
+    </ul>
+    <p>--------------------</p>
+  </div>
+</template>
+
+<script src="js/vue.js"></script>
+<script>
+  // 创建局部组件
+  const Box = {
+    // 接收数据
+    props: {
+       lkBrand: {type: String, required: true, default: '哈哈哈哈'},
+       lkColleges:{type: Array, required: true}
+    },
+    template: '#box'
+  };
+
+  const app = Vue.createApp({
+    data() {
+      return {
+        msg1: '撩课学院',
+        msg2: ['撩课-Go学科', '撩课-Java学科', '撩课-Python学科']
+      }
+    },
+    components:{
+      'lk-box': Box
+    }
+  }).mount('#app');
+</script>
+</body>
+</html>

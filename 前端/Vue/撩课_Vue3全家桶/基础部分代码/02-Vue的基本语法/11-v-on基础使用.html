@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+      <h1>运算结果: {{ count }}</h1>
+      <button v-on:click="sub">-</button>
+      <button @click="add">+</button>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data(){
+        return {
+          count: 0
+        }
+      },
+      methods:{
+        add(){
+          this.count++;
+        },
+        sub(){
+          this.count--;
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

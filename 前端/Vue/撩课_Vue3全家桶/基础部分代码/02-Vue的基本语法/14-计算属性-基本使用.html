@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<div id="app">
+  <p>乔治·希尔</p>
+  <p>----1. 常规用法----</p>
+  <p>{{firstName + '·' + lastName}}</p>
+  <p>----2. 函数----</p>
+  <p>{{getFullName()}}</p>
+  <p>----3. 计算属性----</p>
+  <p>{{fullName}}</p>
+</div>
+<script src="js/vue.js"></script>
+<script>
+  const app = Vue.createApp({
+    data() {
+      return {
+        firstName: '乔治',
+        lastName: '希尔'
+      }
+    },
+    // 计算属性
+    computed:{
+      /* 细节: 本质上还是属性, 写法如函数, 命名如属性 */
+      fullName(){
+         return this.firstName + '·' + this.lastName;
+      }
+    },
+    methods:{
+      getFullName(){
+        return this.firstName + '·' + this.lastName;
+      }
+    }
+  }).mount('#app');
+</script>
+</body>
+</html>

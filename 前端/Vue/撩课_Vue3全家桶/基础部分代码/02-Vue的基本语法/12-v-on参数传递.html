@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+    <div id="app">
+        <!--1. 不带参数-->
+        <button @click="btn1Click()">按钮1</button>
+        <button @click="btn2Click">按钮2</button>
+
+        <!--2. 带参数 -->
+        <button @click="btn3Click(123, 'abc', true, msg)">按钮3</button>
+
+        <!--3. 带参数又需要事件对象-->
+        <button @click="btn4Click( 123, 'abc', true, msg, $event)">按钮4</button>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      const app = Vue.createApp({
+        data(){
+          return {
+            msg: '撩课学院'
+          }
+        },
+        methods:{
+          btn1Click(args){
+            console.log(args); // undefined
+          },
+          btn2Click(args){
+            console.log(args); // 事件对象
+          },
+          btn3Click(arg1, arg2, arg3, arg4){
+            console.log(arg1, arg2, arg3, arg4);
+            console.log(arguments);
+          },
+          btn4Click(arg1, arg2, arg3, arg4, event){
+            console.log(arg1, arg2, arg3, arg4, event);
+            console.log(arguments);
+          }
+        }
+      }).mount('#app');
+    </script>
+</body>
+</html>

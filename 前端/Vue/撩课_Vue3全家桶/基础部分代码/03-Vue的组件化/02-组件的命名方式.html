@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+     <!--调用全局注册的组件-->
+     <button-counter></button-counter>
+     <ButtonCounter></ButtonCounter>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    // 1. 创建vue实例
+    const app = Vue.createApp({
+      data() {
+        return {}
+      }
+    });
+
+    // 2. 定义一个组件(全局组件)
+    /*
+    app.component('button-counter', {
+      data() {
+        return {
+           count: 0
+        }
+      },
+      template: `
+         <button @click="count++">
+             你点击了按钮 {{count}} 次
+         </button>
+      `
+    });
+    */
+
+    app.component('ButtonCounter', {
+      data() {
+        return {
+          count: 0
+        }
+      },
+      template: `
+         <button @click="count++">
+             你点击了按钮 {{count}} 次
+         </button>
+      `
+    });
+
+    // 3. 挂载vue实例
+    app.mount('#app');
+  </script>
+</body>
+</html>

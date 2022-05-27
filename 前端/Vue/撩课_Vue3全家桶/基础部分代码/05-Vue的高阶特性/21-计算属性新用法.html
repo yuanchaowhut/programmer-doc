@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+   <div id="app"></div>
+<script src="js/vue.js"></script>
+<script>
+  const app = Vue.createApp({
+     setup(props, context){
+        const {ref, computed} = Vue;
+
+        let num1 = ref(10);
+
+        // 计算属性
+        let num2 = computed(()=>{
+          console.log('+++++++++++++');
+          return num1.value * 10;
+        });
+
+        // 定义一个函数
+        const add = ()=>{
+          console.log('-----来了----');
+          num1.value += 10;
+        }
+
+        return {
+          num1,
+          num2,
+          add
+        }
+     },
+     template: `
+       <div>
+          <h2>属性: {{num1}}</h2>
+          <h2>计算属性: {{num2}}</h2>
+          <h2>计算属性: {{num2}}</h2>
+          <h2>计算属性: {{num2}}</h2>
+          <h2>计算属性: {{num2}}</h2>
+          <h2>计算属性: {{num2}}</h2>
+          <h2>计算属性: {{num2}}</h2>
+          <h2>计算属性: {{num2}}</h2>
+          <h2>计算属性: {{num2}}</h2>
+          <p>----------------------</p>
+          <button @click="add()">变化</button>
+       </div>
+     `
+  }).mount('#app');
+</script>
+</body>
+</html>

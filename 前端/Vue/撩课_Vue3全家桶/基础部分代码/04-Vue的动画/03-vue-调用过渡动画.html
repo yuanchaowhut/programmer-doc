@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .red{
+      background-color: red;
+    }
+
+    .blue{
+      background-color: blue;
+    }
+
+    .transition{
+       transition: background-color 1s linear;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+           isRed: true,
+           isBlue: false
+        }
+      },
+      methods:{
+        deal(){
+          this.isRed = !this.isRed;
+          this.isBlue = !this.isBlue;
+        }
+      },
+      template: `
+        <div>
+            <div class="box transition" :class="{red: isRed, blue: isBlue}">撩课学院</div>
+            <button @click="deal">切换</button>
+        </div>
+      `
+    }).mount('#app');
+  </script>
+</body>
+</html>

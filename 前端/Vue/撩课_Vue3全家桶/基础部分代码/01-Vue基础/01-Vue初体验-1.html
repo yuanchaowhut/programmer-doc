@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+     <h1>{{message}}</h1>
+  </div>
+  <p>---------------</p>
+  <div>{{message}}</div>
+<script src="js/vue.js"></script>
+<script>
+  /*
+    响应式
+  */
+    // 0. 创建实例的全局配置对象
+    const HelloVue = {
+        data(){ // 定义数据
+           return {
+              message: '你好, 撩课学院'
+           }
+        }
+    };
+    // 1. 创建Vue的实例对象
+    const app = Vue.createApp(HelloVue).mount('#app');
+</script>
+</body>
+</html>

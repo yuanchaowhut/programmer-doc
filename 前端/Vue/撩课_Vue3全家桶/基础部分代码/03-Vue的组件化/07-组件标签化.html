@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<div id="app">
+  <lk-count></lk-count>
+  <div>
+    <lk-count></lk-count>
+  </div>
+  <lk-box></lk-box>
+</div>
+
+<!--1.script标签-->
+<!--
+<script type="text/template" id="lk_count">
+  <button @click="count++">点击了{{count}}次</button>
+</script>
+
+<script type="text/template" id="lk_box">
+  <div style="width: 200px; height: 200px; background-color: red;">
+    盒子组件
+    <cc-count></cc-count>
+  </div>
+</script>
+-->
+
+<!--2.使用template标签-->
+<template id="lk_count">
+  <button @click="count++">点击了{{count}}次</button>
+</template>
+
+<template type="text/template" id="lk_box">
+  <div style="width: 200px; height: 200px; background-color: red;">
+    盒子组件
+    <cc-count></cc-count>
+  </div>
+</template>
+
+<script src="js/vue.js"></script>
+<script>
+  // 1. 注册一个局部组件
+  const Counter = {
+    data(){
+      return {
+        count: 0
+      }
+    },
+    template: '#lk_count'
+  };
+
+  // 2. 注册一个局部组件
+  const Box = {
+    // 组件选项
+    components:{
+      'cc-count': Counter
+    },
+    template: '#lk_box'
+  };
+
+  const app = Vue.createApp({
+    data() {
+      return {
+        msg: '撩课学院'
+      }
+    },
+    // 组件选项
+    components:{
+      'lk-count': Counter,
+      'lk-box': Box
+    }
+  }).mount('#app');
+</script>
+</body>
+</html>

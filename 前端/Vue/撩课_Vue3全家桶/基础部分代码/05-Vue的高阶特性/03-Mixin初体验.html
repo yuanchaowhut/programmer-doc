@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app1"></div>
+  <script src="js/vue.js"></script>
+  <script>
+    // 定义一个mixin对象
+    /*
+      1. 实例中的data, methods之类的选项 优先级高于 mixin中 定义的
+      2. 对于 生命周期函数, 先执行 mixin 中的, 然后执行实例中的
+    */
+    const myMixin = {
+        // 自定义属性
+        age: 100
+    };
+
+    const app1 = Vue.createApp({
+      mounted(){
+         console.log(this.$options);
+      },
+      data(){
+        return {
+           msg: 'itLike.com'
+        }
+      },
+      age: 99,
+      mixins: [myMixin],
+      methods:{
+        hello(){
+            alert('哈哈哈哈');
+         }
+      },
+      template: `
+        <div>
+           <h1>{{msg}}</h1>
+           <div>{{this.$options.age}}</div>
+           <button @click="hello">打个招呼</button>
+        </div>
+      `
+    });
+
+    // 通过配置决定使用哪个里面的属性
+    app1.config.optionMergeStrategies.age = (mixinVal, appValue)=>{
+        return  appValue || mixinVal;
+    };
+
+    app1.mount('#app1');
+
+    // 全局配置mixin
+    app1.mixin({
+
+    });
+
+  </script>
+</body>
+</html>

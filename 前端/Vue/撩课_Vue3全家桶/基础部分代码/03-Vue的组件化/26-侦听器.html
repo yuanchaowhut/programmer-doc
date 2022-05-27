@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+    <h1>普通价: {{ price }}</h1>
+    <p>---------------------------------------</p>
+    <h1>会员价: {{ memberPrice }}</h1>
+    <p>----------------------------------------</p>
+    <h1>VIP价: {{ vipPrice }}</h1>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+           price: 5,
+           vipPrice: 0
+        }
+      },
+      // 计算属性
+      computed:{
+         memberPrice(){
+           // 错误的写法: 不能异步
+           setTimeout(()=>{
+             return this.price * 0.8;
+           }, 2000);
+         }
+      },
+      // 侦听器
+      watch:{
+         price(current, prev){
+           /*
+           console.log(current, prev);
+           console.log('价格发生变化!');
+           */
+            // this.vipPrice = current * 0.5;
+
+           // 异步操作
+           setTimeout(()=>{
+             this.vipPrice = current * 0.5;
+           }, 2000);
+         }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

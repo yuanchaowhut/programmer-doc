@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ref</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = Vue.createApp({
+      setup(props, context){
+         // 1. 引入reactive
+         const {reactive, toRefs} = Vue;
+         let pObj = reactive({name: '张三', sex: '男'});
+
+         setTimeout(()=>{
+           pObj.name = '小撩';
+           pObj.sex = '女';
+         }, 2000);
+
+         // const {name, sex} = pObj;
+        /*
+          proxy({name: '张三', sex: '男'})
+          --->
+          name: proxy({value: '张三'})
+          sex: proxy({value: '男'})
+        */
+         const {name, sex} = toRefs(pObj);
+         return {
+           name,
+           sex
+         }
+      },
+      template: `
+        <div>
+           <h1>姓名: {{ name }}, 性别: {{sex}}</h1>
+        </div>
+      `
+    }).mount('#app');
+  </script>
+</body>
+</html>

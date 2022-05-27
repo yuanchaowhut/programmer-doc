@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+       <div>{{msg}}</div>
+      <lk-box v-show="isShow"></lk-box>
+  </div>
+
+  <template id="box">
+      <div style="background-color: red; width: 200px; height: 200px; margin: 20px;">
+        <button v-show="isShow">撩课一下</button>
+      </div>
+  </template>
+
+  <script src="js/vue.js"></script>
+  <script>
+    const LKBox = {
+      data(){
+        return {
+          isShow: true,
+          msg: '哈哈哈哈'
+        }
+      },
+      template: '#box'
+    };
+
+    const app = Vue.createApp({
+      data() {
+        return {
+           isShow: true
+        }
+      },
+      components:{
+        'lk-box': LKBox
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

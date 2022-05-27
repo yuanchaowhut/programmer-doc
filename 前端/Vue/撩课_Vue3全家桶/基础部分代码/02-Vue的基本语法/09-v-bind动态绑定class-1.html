@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    .red{
+      color: red;
+    }
+
+    .blue{
+      color: blue;
+    }
+
+    .f60{
+      font-size: 60px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+      <h3 class="red f60">{{ msg }}</h3>
+      <h3 :class="[red, f60, blue]">{{msg}}</h3>
+      <h3 :class="getClass()">{{msg}}</h3>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data(){
+        return {
+          msg: '撩课学院',
+          red: 'red',
+          f60: 'f60',
+          blue: 'blue'
+        }
+      },
+      methods:{
+         getClass(){
+           return [this.red, this.f60, this.blue];
+         }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

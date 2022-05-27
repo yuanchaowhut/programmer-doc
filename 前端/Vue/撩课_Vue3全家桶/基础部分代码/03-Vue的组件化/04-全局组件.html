@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<div id="app">
+  <!--首页-->
+  <div id="home">
+    <span>首页</span>
+    <button-counter></button-counter>
+    <lk-box></lk-box>
+  </div>
+  <!--消息-->
+  <div id="message">
+    <span>消息</span>
+    <button-counter></button-counter>
+  </div>
+  <!--我的-->
+  <div id="mine">
+    <span>我的</span>
+    <button-counter></button-counter>
+  </div>
+  <!--根目录-->
+  <button-counter></button-counter>
+</div>
+<script src="js/vue.js"></script>
+<script>
+  const app = Vue.createApp({
+    data() {
+      return {
+        msg: '撩课学院'
+      }
+    }
+  });
+
+  // 注册全局组件
+  app.component('button-counter', {
+    data() {
+      return {
+        count: 0
+      }
+    },
+    template: `
+         <button @click="count++">
+             你点击了按钮 {{count}} 次
+         </button>
+      `
+  });
+
+  app.component('lk-box',{
+     template:`
+       <div style="width: 200px; height: 200px; background-color: red;">
+          盒子组件
+          <button-counter></button-counter>
+       </div>
+     `
+  });
+
+  app.mount('#app');
+</script>
+</body>
+</html>

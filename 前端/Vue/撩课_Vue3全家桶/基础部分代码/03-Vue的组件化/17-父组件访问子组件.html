@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+     <lk-box ref="box1"></lk-box>
+     <lk-box ref="box2"></lk-box>
+     <lk-box ref="box3"></lk-box>
+     <button @click="getChildComponent">获取子组件</button>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    // 定义局部组件
+    const Box = {
+      data(){
+        return {
+          msg: '撩课学院'
+        }
+      },
+      methods:{
+        btnClick(){
+          alert('点击了按钮');
+        }
+      },
+      template: `
+        <div style="background-color: red; width: 200px; height: 200px;">
+           <button @click="btnClick">点我</button>
+        </div>
+              `
+    };
+
+    const app = Vue.createApp({
+      data() {
+        return {
+          msg: '撩课学院'
+        }
+      },
+      components:{
+        'lk-box': Box
+      },
+      methods:{
+        // 获取子组件
+        getChildComponent(){
+          console.log(this.$refs);
+          // console.log(this.$refs.box1);
+          // console.log(this.$refs.box1.msg);
+          // this.$refs.box1.btnClick();
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

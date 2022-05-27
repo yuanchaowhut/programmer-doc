@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    .box{
+      width: 200px;
+      height: 200px;
+      background-color: red;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+           posData: {
+             top: 100,
+             left: 200
+           }
+        }
+      },
+      template: `
+        <div class="box" v-fixed="posData">
+           撩课学院
+        </div>
+      `
+    });
+    app.directive('fixed', {
+      // console.log(el, binding);
+     /* el.style.position = 'fixed';
+      el.style.left = binding.value.left + 'px';
+      el.style.top = binding.value.top + 'px';*/
+
+      mounted(el, binding) {
+        el.style.position = 'fixed';
+        el.style.left = binding.value.left + 'px';
+        el.style.top = binding.value.top + 'px';
+      }
+    });
+    app.mount('#app');
+  </script>
+</body>
+</html>

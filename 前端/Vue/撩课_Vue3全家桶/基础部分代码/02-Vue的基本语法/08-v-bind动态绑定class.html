@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    .red{
+      color: red;
+    }
+    .f60{
+      font-size: 60px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+     <!--
+      <h1 class="red">{{ msg }}</h1>
+      <h1 :class="arg1">{{ msg }}</h1>
+      -->
+     <!-- <p :class="{类名1: 布尔值, 类名2: 布尔值, 类名3: 布尔值}">{{msg}}</p>-->
+      <!--<p :class="{red: true, f60: false}">{{msg}}</p>-->
+      <p class="box" :class="{red: isRed, f60: isF60}">{{msg}}</p>
+      <p class="box" :class="getClass">{{msg}}</p>
+      <button @click="change">切换</button>
+
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data(){
+        return {
+          msg: '撩课学院',
+          red: 'red',
+          f60: 'f60',
+          isRed: true,
+          isF60: true
+        }
+      },
+      methods:{
+        change(){
+           this.isRed = !this.isRed;
+           this.isF60 = !this.isF60;
+        },
+        getClass() {
+          return {red: this.isRed, f60: this.isF60};
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

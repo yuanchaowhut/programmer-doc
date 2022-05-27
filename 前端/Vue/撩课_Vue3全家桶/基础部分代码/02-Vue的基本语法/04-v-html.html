@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+     {{site}}
+      <p>------------</p>
+      <div v-html="site"></div>
+      <div v-html="intro"></div>
+  </div>
+<script src="js/vue.js"></script>
+<script>
+  const app = Vue.createApp({
+    data(){
+      return {
+         site: '<a href="http://www.itlike.com">撩课学院</a>',
+         intro: '<button>点我</button>'
+      }
+    }
+  }).mount('#app');
+</script>
+</body>
+</html>

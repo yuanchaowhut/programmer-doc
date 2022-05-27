@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+     <lk-box></lk-box>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+
+    const LKButton = {
+       data(){
+         return {
+           count: 0
+         }
+       },
+       template: `
+         <button @click="btnClick">点击了按钮{{count}}次</button>
+       `,
+       methods:{
+         btnClick() {
+           this.count++;
+           // 1. 子组件中访问父组件
+           /*console.log(this.$parent);
+           console.log(this.$parent.abc);*/
+
+           // 2. 子组件中访问根组件
+           console.log(this.$root);
+           console.log(this.$root.msg);
+         }
+       }
+    };
+
+    const  LKBox = {
+      data(){
+         return {
+            abc: '哈哈哈哈'
+         }
+      },
+      template:`
+        <div style="width: 200px; height: 200px; background-color: red;">
+            <lk-button></lk-button>
+        </div>
+      `,
+      components: {
+         'lk-button': LKButton
+      }
+    };
+
+    const app = Vue.createApp({
+      data() {
+        return {
+          msg: '撩课学院'
+        }
+      },
+      components: {
+        'lk-box': LKBox
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

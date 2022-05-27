@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    body{
+      font-size: 50px;
+      text-align: center;
+    }
+
+    .v-enter-from{
+      opacity: 0;
+    }
+    .v-enter-active,
+    .v-leave-active{
+      transition: all 1s ease-in;
+    }
+    .v-enter-to{
+      opacity: 1;
+    }
+    .v-leave-to{
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="js/vue.js"></script>
+  <script>
+    const Box1= {
+      template: `<div>撩课学院</div>`
+    };
+
+    const Box2= {
+      template: `<div>itLike.com</div>`
+    };
+
+    const app = Vue.createApp({
+      data() {
+        return {
+          component: 'box-1'
+        }
+      },
+      components:{
+        'box-1': Box1,
+        'box-2': Box2
+      },
+      methods:{
+        handleClick(){
+           if(this.component === 'box-1'){
+             this.component = 'box-2';
+           }else {
+             this.component = 'box-1';
+           }
+        }
+      },
+      template:`
+        <div>
+           <transition mode="out-in" appear>
+              <component :is="component" />
+           </transition>
+           <p>---------------------------------</p>
+           <button @click="handleClick">切换显示</button>
+        </div>
+      `
+    }).mount('#app');
+  </script>
+</body>
+</html>

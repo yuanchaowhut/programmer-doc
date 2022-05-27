@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+     <h1>{{msg}}</h1>
+     <lk-count></lk-count>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    // 1. 注册一个局部组件
+    const Counter = {
+      data(){
+        return {
+          count: 0,
+          msg: '百度一下'
+        }
+      },
+      template: `
+        <div>
+           <button @click="count++">点击了{{count}}次</button>
+           <h2>{{msg}}</h2>
+        </div>
+      `
+    };
+
+    const app = Vue.createApp({
+      data() {
+        return {
+          msg: '撩课学院'
+        }
+      },
+      // 组件选项
+      components:{
+         'lk-count': Counter,
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

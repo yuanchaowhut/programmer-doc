@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+      <lk-box></lk-box>
+
+      <p>---------------------</p>
+
+      <lk-box>
+         <template v-slot:default="slotProps">
+            <!--<span>{{slotProps}}</span>-->
+            <span>{{slotProps.data.join('----')}}</span>
+         </template>
+      </lk-box>
+
+      <p>--------------------------</p>
+
+      <lk-box>
+        <template v-slot:default="slotProps">
+         <!-- <span>{{slotProps}}</span>-->
+          <span>{{slotProps.data.join('******')}}</span>
+        </template>
+      </lk-box>
+  </div>
+
+  <template id="box">
+     <div style="background-color: red; width: 200px; height: 200px; margin: 20px;">
+       <slot :data="nameArr">
+          <!--默认的-->
+          <ul>
+            <li v-for="name in nameArr">{{name}}</li>
+          </ul>
+       </slot>
+     </div>
+  </template>
+
+  <script src="js/vue.js"></script>
+  <script>
+    const LKBox = {
+      data(){
+        return {
+          nameArr: ['张三', '李四', '王五', '赵六']
+        }
+      },
+      template: '#box'
+    };
+
+    const app = Vue.createApp({
+      data() {
+        return {
+
+        }
+      },
+      components:{
+        'lk-box': LKBox
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

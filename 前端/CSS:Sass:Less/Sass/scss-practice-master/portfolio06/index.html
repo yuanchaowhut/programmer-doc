@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="dist/css/reset.css" />
+    <link rel="stylesheet" href="dist/css/styles.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+    <title>Tolv</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li>Products</li>
+          <li>Strockists</li>
+          <li>About us</li>
+        </ul>
+      </nav>
+      <h1 class="logo">
+        T
+        <div>o</div>
+        lv
+      </h1>
+      <span>🔍</span>
+    </header>
+    <main>
+      <div class="popup-wrapper">
+        <div class="popup">
+          <div class="top-wrapper">
+            <h3>Search</h3>
+            <i class="far fa-times-circle"></i>
+          </div>
+          <div class="input-wrapper">
+            <input type="text" placeholder="Type anything">
+            <i class="fas fa-search"></i>
+          </div>
+        </div>
+      </div>
+      <div class="hero">
+        <div class="hero__img"></div>
+        <div class="hero__text">
+          <h2>
+            Lift the blind to let in the light. A moment of calm before the day
+            begins.
+          </h2>
+          <span>
+            Featuring
+            <a href="#">Cherry sofa</a>
+            and
+            <a href="#">Kile coffee table</a>
+          </span>
+        </div>
+      </div>
+
+      <div class="banner">
+        <h3 class="banner__title">Time for Living</h3>
+        <p>
+          Take time for life’s little moments. Browsing the news as you eat
+          breakfast. Setting the table for hungry guests. Sinking in to your
+          favourite armchair. At Tolv, your daily rituals are at the heart of
+          our design. We make furniture to give you your best day, every day.
+        </p>
+        <span> Find out more <a href="#"> About us</a> </span>
+      </div>
+      <section class="gallery">
+        <div class="gallery__item">
+          <div class="gallery__background bg1"></div>
+          <div class="gallery__text">
+            <span>eget</span>
+            <span>nullam </span>
+            <i class="fas fa-long-arrow-alt-right"></i>
+          </div>
+        </div>
+        <div class="gallery__item">
+          <div class="gallery__background bg2"></div>
+          <div class="gallery__text">
+            <span>risus</span>
+            <span>nullam </span>
+            <i class="fas fa-long-arrow-alt-right"></i>
+          </div>
+        </div>
+        <div class="gallery__item">
+          <div class="gallery__background bg3"></div>
+          <div class="gallery__text">
+            <span>tege</span>
+            <span>arcu</span>
+            <i class="fas fa-long-arrow-alt-right"></i>
+          </div>
+        </div>
+        <div class="gallery__item">
+          <div class="gallery__background bg4"></div>
+          <div class="gallery__text">
+            <span>donec</span>
+            <span>pretium</span>
+            <i class="fas fa-long-arrow-alt-right"></i>
+          </div>
+        </div>
+        <div class="gallery__item">
+          <div class="gallery__background bg5"></div>
+          <div class="gallery__text">
+            <span>libero</span>
+            <span>laoreet</span>
+            <i class="fas fa-long-arrow-alt-right"></i>
+          </div>
+        </div>
+        
+        <div class="gallery__item">
+          <div class="gallery__background bg6"></div>
+          <div class="gallery__text">
+            <span>amet</span>
+            <span>justro</span>
+            <i class="fas fa-long-arrow-alt-right"></i>
+          </div>
+        </div>
+        <div class="gallery__item">
+          <div class="gallery__background bg7"></div>
+          <div class="gallery__text">
+            <span>sit</span>
+            <span>pharetra</span>
+            <i class="fas fa-long-arrow-alt-right"></i>
+          </div>
+        </div>
+        <div class="gallery__item">
+          <div class="gallery__background bg8"></div>
+          <div class="gallery__text">
+            <span>laoreet</span>
+            <span>cursus</span>
+            <i class="fas fa-long-arrow-alt-right"></i>
+          </div>
+        </div>
+        <div class="gallery__item">
+          <div class="gallery__background bg9"></div>
+          <div class="gallery__text">
+            <span>eget</span>
+            <span>nullam </span>
+            <i class="fas fa-long-arrow-alt-right"></i>
+          </div>
+        </div>
+        <div class="gallery__item">
+          <div class="gallery__background bg10"></div>
+          <div class="gallery__text">
+            <span>vitae</span>
+            <span>curabitur</span>
+            <i class="fas fa-long-arrow-alt-right"></i>
+          </div>
+        </div>
+        <div class="gallery__item">
+          <div class="gallery__background bg11"></div>
+          <div class="gallery__text">
+            <span>sagittis</span>
+            <span>malesuada</span>
+            <i class="fas fa-long-arrow-alt-right"></i>
+          </div>
+        </div>
+        <div class="gallery__item">
+          <div class="gallery__background bg12"></div>
+          <div class="gallery__text">
+            <span>eleifend</span>
+            <span>sapien</span>
+            <i class="fas fa-long-arrow-alt-right"></i>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script>
+      var search = document.querySelector("header> span");
+      var popup = document.querySelector(".popup")
+      var popupWrap = popup.parentElement;
+      console.log(popupWrap);
+      var hero = document.querySelector(".hero");
+      var close = document.querySelector(".fa-times-circle");
+      console.log(close);
+      function fadeIn(){
+        popup.classList.add("showing")
+        popupWrap.style.zIndex = 200;
+        hero.classList.add("blur");
+      }
+      function fadeOut(){
+        popup.classList.remove("showing")
+        hero.classList.remove("blur");
+        popupWrap.style.zIndex = -1;
+
+
+      }
+      function init(){
+        search.style.cursor="pointer";
+        search.addEventListener("click", fadeIn);
+        close.addEventListener("click", fadeOut);
+      };
+      init();
+    </script>
+  </body>
+</html>

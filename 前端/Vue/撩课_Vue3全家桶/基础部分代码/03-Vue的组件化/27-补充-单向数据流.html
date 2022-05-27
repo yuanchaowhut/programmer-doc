@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="js/vue.js"></script>
+  <script>
+    const LKBox = {
+       props:{
+         total: Number
+       },
+       data(){
+         return {
+            myTotal: this.total
+         }
+       },
+       template: `
+         <div>传递的数据: {{total}}</div>
+         <button @click="total++">修改</button>
+         <p>--------------------------------------------</p>
+         <div>自己的数据: {{myTotal}}</div>
+         <button @click="myTotal++">修改</button>
+       `
+    };
+
+    const app = Vue.createApp({
+      data() {
+        return {
+           count: 100
+        }
+      },
+      components:{
+        'lk-box': LKBox
+      },
+      template: `
+        <lk-box :total="count"></lk-box>
+      `
+    }).mount('#app');
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<div id="app">
+  <!--
+  <h1>{{ msg }}</h1>
+  <img src="{{imgUrl}}" alt="">
+  -->
+  <!--动态绑定-->
+  <img v-bind:src="imgUrl" v-bind:alt="alt">
+  <a v-bind:href="site">撩课学院</a>
+
+  <!--简写: 语法糖-->
+  <img :src="imgUrl" :alt="alt">
+  <a :href="site">撩课学院</a>
+</div>
+<script src="js/vue.js"></script>
+<script>
+  const app = Vue.createApp({
+    data() {
+      return {
+        msg: '撩课学院',
+        imgUrl: 'https://imgcps.jd.com/ling4/100000499657/5bCd5ZOB6LSo5aW96Iy2/5aSa5Lmw5LyY5oOgMuS7tjnmipjotbc/p-5bd8253082acdd181d02f9d3/221427da/cr/s/q.jpg',
+        alt: '风景美如画',
+        site: 'http://www.baidu.com'
+      }
+    }
+  }).mount('#app');
+</script>
+</body>
+</html>

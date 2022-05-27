@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+      <lk-box>
+        <button>撩课一下</button>
+      </lk-box>
+
+      <lk-box>
+        <input type="text" placeholder="请输入内容">
+      </lk-box>
+
+      <lk-box>
+        <img src="https://img30.360buyimg.com/seckillcms/s80x80_jfs/t1/163839/25/9050/146894/603dd621E822a5c81/c047a98b3f94ab43.jpg.webp" alt="">
+      </lk-box>
+  </div>
+
+
+  <template id="box">
+     <div style="background-color: red; width: 200px; height: 200px; margin: 20px;">
+        <h2>撩课学院</h2>
+        <p>like it, itLike.com</p>
+        <!--<button>撩课一下</button>-->
+        <!--预留插槽-->
+        <slot>默认内容</slot>
+     </div>
+  </template>
+
+  <script src="js/vue.js"></script>
+  <script>
+    const LKBox = {
+        template: '#box'
+    };
+    const app = Vue.createApp({
+      data() {
+        return {
+
+        }
+      },
+      components:{
+        'lk-box': LKBox
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

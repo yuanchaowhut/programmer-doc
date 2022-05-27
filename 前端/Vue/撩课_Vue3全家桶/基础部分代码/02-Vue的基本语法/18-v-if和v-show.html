@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+     <div v-if="flag">明天要下雨!</div>
+     <div v-else>明天不下雨!</div>
+
+     <p>====================================</p>
+
+     <div v-show="flag">明天要上课</div>
+     <div v-show="!flag">明天不上课</div>
+
+     <button @click="flag=!flag">切换条件</button>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          flag: true
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

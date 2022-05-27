@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<div id="app"></div>
+<script src="js/vue.js"></script>
+<script>
+  const app = Vue.createApp({
+    data() {
+      return {
+        msg: '撩课学院'
+      }
+    },
+    template:`
+     <div>
+       <!--<lk-box :info="msg"></lk-box>-->
+       <lk-box info="撩课学院" style="background-color: red; width: 100px; height: 100px;"></lk-box>
+     </div>
+    `
+  });
+
+  app.component('lk-box', {
+     // props: ['info'],
+
+    // 不接受no-props属性
+    // inheritAttrs: false,
+
+     // template: `<div>我是子组件--{{info}}</div>`
+     // template: `<div>我是子组件</div>`
+
+     mounted(){
+       console.log(this.$attrs);
+       console.log(this.$attrs.info);
+       console.log(this.$attrs.style);
+     },
+
+     // 如果有多个同级别标签, no-props是不生效的
+     template: `
+       <div :s1="$attrs.info">我是子组件</div>
+       <div v-bind="$attrs">我是子组件</div>
+       <div :style="$attrs.style">我是子组件</div>
+     `
+  });
+
+  app.mount('#app');
+</script>
+</body>
+</html>

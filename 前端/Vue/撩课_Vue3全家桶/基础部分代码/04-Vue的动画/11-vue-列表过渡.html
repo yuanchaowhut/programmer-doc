@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    .list-item{
+      display: inline-block;
+      margin: 10px;
+    }
+
+    .v-enter-from{
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .v-enter-active{
+      transition: all .5s ease-in;
+    }
+    .v-enter-to{
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .v-leave-from{
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .v-leave-active{
+      transition: all .5s ease-in;
+    }
+    .v-leave-to{
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+  </style>
+</head>
+<body>
+<div id="app"></div>
+<script src="js/vue.js"></script>
+<script>
+  const app = Vue.createApp({
+    data() {
+      return {
+        list:[]
+      }
+    },
+    methods:{
+      add(){
+        this.list.push('撩课-' + (this.list.length + 1))
+      },
+      del(){
+        this.list.pop();
+      }
+    },
+    template: `
+     <div>
+         <transition-group>
+             <div class="list-item" v-for="item in list" :key="item">{{item}}</div>
+         </transition-group>
+         <p>------------------------------------</p>
+         <button @click="add">增加</button>
+         <button @click="del">删除</button>
+     </div>
+    `
+  }).mount('#app');
+</script>
+</body>
+</html>

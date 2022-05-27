@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    .box{
+      background-color: red;
+      width: 100px;
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+      <!--1. 阻止冒泡-->
+      <div class="box" @click="boxClick">
+        <button @click.stop="btnClick">点我</button>
+      </div>
+      <!--2. 阻止默认事件-->
+      <form action="http://www.jd.com">
+        <input type="submit" value="提交" @click.prevent="doSubmit">
+      </form>
+      <a href="http://www.baidu.com" @click.prevent="aClick">百度一下</a>
+      <!--3. 响应一次事件-->
+      <button @click.once="btnClick">点我</button>
+      <!--4. 键盘事件修饰符-->
+      <input type="text" @keyup="getMsg">
+      <input type="text" @keyup.enter="getMsg">
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data(){
+        return {
+          msg: '撩课学院'
+        }
+      },
+      methods:{
+        boxClick(){
+          console.log('点击了盒子');
+        },
+        btnClick(event){
+          // event.stopPropagation();
+          console.log('点击了按钮')
+        },
+        doSubmit(event){
+          // 阻止默认事件
+          // event.preventDefault();
+          console.log('表单提交')
+        },
+        aClick(){
+          console.log('点击了a标签');
+        },
+        getMsg(event){
+          console.log(event);
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

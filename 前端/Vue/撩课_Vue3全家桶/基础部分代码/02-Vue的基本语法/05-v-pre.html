@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+      <p v-pre>不产生编译: {{msg}}</p>
+      <p>{{ msg }}</p>
+  </div>
+<script src="js/vue.js"></script>
+<script>
+  const app = Vue.createApp({
+    data(){
+      return {
+        msg: '撩课学院'
+      }
+    }
+  }).mount('#app');
+</script>
+</body>
+</html>

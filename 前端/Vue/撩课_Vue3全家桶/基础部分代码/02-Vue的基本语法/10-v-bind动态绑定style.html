@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+      <p style="font-size: 50px;">{{ msg }}</p>
+      <p :style="{fontSize: '50px'}">{{ msg }}</p>
+
+      <!--动态传递-->
+      <p :style="{fontSize: f50, backgroundColor: bColor}">{{ msg }}</p>
+      <p :style="getStyle()">{{ msg }}</p>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data(){
+        return {
+          msg: '撩课学院',
+          f50: '50px',
+          bColor: 'red'
+        }
+      },
+      methods:{
+        getStyle(){
+          return {fontSize: this.f50, backgroundColor: this.bColor}
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

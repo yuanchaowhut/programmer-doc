@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="js/vue.js"></script>
+  <script>
+    const lkDirective = {
+      focus:{
+        created(){
+          console.log('created()');
+        },
+        beforeMount(){
+          console.log('beforeMount()');
+        },
+        mounted(el) {
+          console.log('mounted()');
+          el.focus();
+        },
+        beforeUpdate(){
+          console.log('beforeUpdate()');
+        },
+        updated(){
+          console.log('updated()');
+        },
+        beforeUnmount(){
+          console.log('beforeUnmount()');
+        },
+        unmounted(){
+          console.log('unmounted()');
+        },
+      }
+    };
+
+    const app = Vue.createApp({
+      data() {
+        return {
+          isShow: true
+        }
+      },
+      directives: lkDirective,
+      template: `
+        <div v-if="isShow">
+           <input type="text" v-focus>
+        </div>
+      `
+    }).mount('#app');
+  </script>
+</body>
+</html>

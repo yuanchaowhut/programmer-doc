@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="app"></div>
+<script src="js/vue.js"></script>
+<script>
+    // 1. 孙组件
+    const lkSon = {
+        setup() {
+            const {inject} = Vue
+            //订阅
+            const bName = inject('brand', '默认值')
+            const bCollege = inject('college')
+            const changeBrand = inject('changeBrand')
+
+            const changeName = () => {
+                // bName.value = 'itlike'
+
+                changeBrand('itLike')
+            }
+
+            return {
+                bName,
+                bCollege,
+                changeName
+            }
+        },
+        template: `
+          <div style="width: 200px; height: 200px; background-color: green">
+          {{ bName }} ------ {{ bCollege }}
+          <button @click="changeName()">修改</button>
+          </div>
+        `
+    }
+
+    // 2. 子组件
+    const lkFather = {
+        components: {
+            'lk-son': lkSon
+        },
+        template: `
+          <div style="width: 400px; height: 400px; background-color: red">
+          父组件
+          <lk-son></lk-son>
+          </div>
+        `
+    }
+
+    const app = Vue.createApp({
+        setup() {
+            const {ref, reactive, provide, readonly} = Vue;
+            let brand = ref('撩课')
+            let college = reactive({city: '上海', site: 'itlike.com'})
+
+            const changeBrand = (params) => {
+                brand.value = params
+            }
+
+            // 发射
+            provide('brand', readonly(brand))
+            provide('college', college)
+            provide('changeBrand', changeBrand)
+        },
+        components: {
+            'lk-father': lkFather
+        },
+        template: `
+          <lk-father></lk-father>
+        `
+    }).mount('#app');
+</script>
+</body>
+</html>

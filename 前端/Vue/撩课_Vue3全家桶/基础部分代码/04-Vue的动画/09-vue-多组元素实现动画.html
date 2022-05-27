@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    body{
+      font-size: 50px;
+      text-align: center;
+    }
+
+    .v-enter-from{
+      opacity: 0;
+    }
+    .v-enter-active,
+    .v-leave-active{
+      transition: all 2s ease-in;
+    }
+    .v-enter-to{
+      opacity: 1;
+    }
+    .v-leave-to{
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          flag: true
+        }
+      },
+      methods:{
+        handleClick(){
+           this.flag = !this.flag;
+        }
+      },
+      template:`
+        <div>
+           <transition mode="out-in" appear>
+             <button v-if="flag">点我呀</button>
+             <p v-else>我是MTTTTT</p>
+           </transition>
+           <p>---------------------------------</p>
+           <button @click="handleClick">切换显示</button>
+        </div>
+      `
+    }).mount('#app');
+  </script>
+</body>
+</html>

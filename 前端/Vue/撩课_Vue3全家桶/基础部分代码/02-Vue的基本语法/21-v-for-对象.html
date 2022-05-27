@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+     <ul>
+       <li v-for="item in person">{{item}}</li>
+     </ul>
+     <p>============================</p>
+    <ul>
+      <li v-for="(item, key) in person">{{key}} : {{item}}</li>
+    </ul>
+    <p>============================</p>
+    <ul>
+      <li v-for="(item, key, index) in person">{{index}} -- {{key}} : {{item}}</li>
+    </ul>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+           person: {
+             name: '小撩',
+             age: 18,
+             friends: ['张飒', '李四']
+           }
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

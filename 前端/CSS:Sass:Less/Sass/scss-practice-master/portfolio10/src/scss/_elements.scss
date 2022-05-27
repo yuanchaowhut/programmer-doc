@@ -1,0 +1,41 @@
+@import "_variables";
+%tinyText {
+  color: $red;
+  font-size: 12px;
+  font-family: "Nunito";
+}
+
+%grid {
+  display: grid;
+  grid-template-columns: 1fr 3fr 5fr;
+}
+
+%span{
+  background-color:white;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+%subMenu{
+  position: absolute; background-color:white;
+  width:calc(100% + 2px);
+  left:-1px;
+  border: 1px solid black;
+}
+
+%product {
+  // padding: 40px;
+  display: grid;
+  height:100%;
+  gap: 20px;
+  grid-template-rows: 80% auto;
+  background-color:white;
+  .product_data {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+  }
+  .price {
+    margin-top: 10px;
+  }
+}

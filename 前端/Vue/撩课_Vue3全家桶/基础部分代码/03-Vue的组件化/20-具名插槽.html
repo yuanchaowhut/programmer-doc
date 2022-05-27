@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<div id="app">
+  <!--错误的-->
+  <!--
+  <lk-box>
+     <h1>头部</h1>
+     <h2>主要内容</h2>
+     <h3>尾部</h3>
+  </lk-box>
+  -->
+  <!--正确的-->
+  <lk-box>
+    <template v-slot:header>
+      <button>我是头部</button>
+    </template>
+
+    <!--
+    <template v-slot:content>
+      <input type="text" placeholder="我是中间内容">
+    </template>
+    -->
+
+    <template v-slot:default>
+      <input type="text" placeholder="我是中间内容">
+    </template>
+
+    <template v-slot:footer>
+       <button>我是尾部</button>
+    </template>
+  </lk-box>
+</div>
+
+<template id="box">
+  <div>
+    <p>-------------------------</p>
+    <header>
+      <!--头部的内容-->
+      <slot name="header">头部的内容</slot>
+    </header>
+    <main>
+      <!--主要的内容-->
+      <!--<slot name="content">主要的内容</slot>-->
+      <slot>主要的内容</slot>
+    </main>
+    <footer>
+      <!--页脚内容-->
+      <slot name="footer">页脚内容</slot>
+    </footer>
+    <p>----------------------------</p>
+  </div>
+</template>
+
+<script src="js/vue.js"></script>
+<script>
+  const LKBox = {
+    template: '#box'
+  };
+  const app = Vue.createApp({
+    data() {
+      return {}
+    },
+    components: {
+      'lk-box': LKBox
+    }
+  }).mount('#app');
+</script>
+</body>
+</html>

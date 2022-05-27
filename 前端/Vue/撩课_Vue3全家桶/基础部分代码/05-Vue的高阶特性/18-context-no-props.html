@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<div id="app"></div>
+<script src="js/vue.js"></script>
+<script>
+  const app = Vue.createApp({
+    data() {
+      return {
+      }
+    },
+    template:`
+     <div>
+       <lk-box sex="男" style="background-color: red; width: 100px; height: 100px;"></lk-box>
+     </div>
+    `
+  });
+
+  app.component('lk-box', {
+     setup(props, context){
+       const {attrs, slots, emit} = context;
+       console.log(attrs);
+     },
+     template: `
+       <div :style="$attrs.style">我是子组件</div>
+     `
+  });
+
+  app.mount('#app');
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ref</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="js/vue.js"></script>
+  <script>
+    /*
+      ref: 让基础类型的数据具备响应式
+    */
+    const app = Vue.createApp({
+      setup(props, context){
+         // 1. 引入ref
+         const {ref} = Vue;
+         // 通过proxy, 'itLike.com' --> proxy({value: 'itLike.com'})
+         let msg = ref('itLike.com');
+
+         setTimeout(()=>{
+            msg.value = '撩课学院';
+         }, 2000);
+
+         return {
+           msg
+         }
+      },
+      template: `
+        <div>
+           <h1>{{ msg }}</h1>
+        </div>
+      `
+    }).mount('#app');
+  </script>
+</body>
+</html>

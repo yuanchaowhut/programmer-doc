@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app1"></div>
+  <p>-----------------------------------------</p>
+  <div id="app2"></div>
+  <script src="js/vue.js"></script>
+  <script>
+    // 定义一个mixin对象
+    /*
+      1. 实例中的data, methods之类的选项 优先级高于 mixin中 定义的
+      2. 对于 生命周期函数, 先执行 mixin 中的, 然后执行实例中的
+    */
+    const myMixin = {
+      data() {
+        return {
+          msg: '撩课学院'
+        }
+      },
+      methods:{
+        hello(){
+          alert('hello, 撩课学院');
+        }
+      },
+      mounted(){
+        console.log('++++++++++++++++++实例完成+++++++++++++++++++');
+      }
+    };
+
+    const app1 = Vue.createApp({
+      mounted(){
+         console.log('----------------实例完成----------------');
+      },
+      data(){
+        return {
+           msg: 'itLike.com'
+        }
+      },
+      mixins: [myMixin],
+      methods:{
+        hello(){
+            alert('哈哈哈哈');
+         }
+      },
+      template: `
+        <div>
+           <h1>{{msg}}</h1>
+           <button @click="hello">打个招呼</button>
+        </div>
+      `
+    });
+    app1.mount('#app1');
+
+
+  /*  const app2 = Vue.createApp({
+      mixins: [myMixin],
+      template: `
+        <div>
+           <h1>{{msg}}</h1>
+           <button @click="hello">打个招呼</button>
+        </div>
+      `
+    });
+    app2.mount('#app2');*/
+  </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+@import "_titles";
+%button {
+  @extend %miniTitle;
+  width: 280px;
+  padding: 25px;
+  border: 1px solid #444;
+  text-align: center;
+  margin-top: 40px;
+  &:hover {
+    background-color: #414141;
+    transition: background-color 0.2s linear;
+    color: white;
+  }
+}

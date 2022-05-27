@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+     <lk-count></lk-count>
+     <div>
+       <lk-count></lk-count>
+     </div>
+     <lk-box></lk-box>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    // 1. 注册一个局部组件
+    const Counter = {
+      data(){
+        return {
+          count: 0
+        }
+      },
+      template: `
+        <button @click="count++">点击了{{count}}次</button>
+      `
+    };
+
+    // 2. 注册一个局部组件
+    // 错误的
+   /*
+   const Box = {
+      template:`
+       <div style="width: 200px; height: 200px; background-color: red;">
+          盒子组件
+          <lk-count></lk-count>
+       </div>
+     `
+    };
+    */
+
+   // 正确的
+    const Box = {
+      // 组件选项
+      components:{
+        'cc-count': Counter
+      },
+      template:`
+       <div style="width: 200px; height: 200px; background-color: red;">
+          盒子组件
+          <cc-count></cc-count>
+       </div>
+     `
+    };
+
+    const app = Vue.createApp({
+      data() {
+        return {
+          msg: '撩课学院'
+        }
+      },
+      // 组件选项
+      components:{
+         'lk-count': Counter,
+         'lk-box': Box
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

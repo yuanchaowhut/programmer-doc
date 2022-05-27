@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+    <h1>{{ msg }}</h1>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          msg: '撩课学院'
+        }
+      },
+      // 生命周期函数: 在一个 组件的生命周期范围 内 某一时刻 会 自动执行 的函数
+
+      // 1. 在实例生成之前自动执行
+      beforeCreate(){
+         console.log('beforeCreate()');
+      },
+
+      // 2. 在实例生成之后自动执行
+      created(){
+        console.log('created()');
+      },
+      // 3. 在组件内容被渲染到页面之前调用
+      beforeMount(){
+       /* console.log('------------------');
+        console.log(document.getElementById('app').innerHTML);
+        console.log('beforeMount()');
+        console.log('------------------');*/
+        console.log('beforeMount()');
+      },
+      // 4. 在组件内容被渲染到页面之后调用
+      mounted(){
+        /*console.log('------------------');
+        console.log(document.getElementById('app').innerHTML);
+        console.log('mounted()');
+        console.log('------------------');*/
+        console.log('mounted()');
+      },
+
+      // 5. 当数据发生变化时调用
+      beforeUpdate(){
+        console.log('------------------');
+        console.log(document.getElementById('app').innerHTML);
+        console.log('beforeUpdate()');
+        console.log('------------------');
+      },
+
+      // 6. 当数据发生变化, 页面也更新完毕时调用
+      updated(){
+        console.log('------------------');
+        console.log(document.getElementById('app').innerHTML);
+        console.log('updated()');
+        console.log('------------------');
+      },
+
+      // 7. 当vue实例失效时, 自动执行函数
+      beforeUnmount(){
+        console.log('------------------');
+        console.log(document.getElementById('app').innerHTML);
+        console.log('beforeUnMount()');
+        console.log('------------------');
+      },
+
+      // 8. 当vue实例失效时, dom完全销毁, 自动执行函数
+      unmounted(){
+        console.log('------------------');
+        console.log(document.getElementById('app').innerHTML);
+        console.log('unmounted()');
+        console.log('------------------');
+      },
+
+      // 9. 全局的错误捕获
+      errorCaptured(err, instance, info){
+        console.log(err, instance, info);
+        return false;
+      },
+
+      template: `<h1>{{ msg }}</h1>`
+    });
+
+    app.mount('#app');
+
+    // 延迟销毁
+    setTimeout(()=>{
+       app.unmount('#app')
+    }, 2000);
+  </script>
+</body>
+</html>

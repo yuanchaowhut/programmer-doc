@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="app"></div>
+<script src="js/vue.js"></script>
+<script>
+    const app = Vue.createApp({
+        setup(props, context) {
+            const {ref, reactive, watch, toRefs} = Vue
+            let eduObj = reactive({brand:'撩课学院', site: 'itLike.com'});
+
+            // 侦听器 -- 侦听一个属性
+            watch(()=>eduObj.brand, (currentValue, preValue)=>{
+                // 相应业务
+                console.log('现在的:', currentValue);
+                console.log('之前的:', preValue);
+            }, {})
+
+            const {brand, site} = toRefs(eduObj)
+
+            return {
+                brand,
+                site
+            }
+        },
+
+        template:`
+          <div>
+            品牌: <input v-model="brand">
+            <p>输入的品牌是: {{brand}}</p>
+            <p>-------------------------</p>
+            网址: <input v-model="site">
+            <p>输入的网址是: {{site}}</p>
+          </div>
+        `
+    }).mount('#app');
+</script>
+</body>
+</html>

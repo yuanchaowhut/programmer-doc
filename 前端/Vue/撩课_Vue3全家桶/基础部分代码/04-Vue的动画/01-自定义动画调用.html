@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    @keyframes shake {
+      0% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(50px);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      /*transition: all 2s ease-in;*/
+
+      animation: shake 2s infinite alternate;
+    }
+
+    /*.box:hover {
+      width: 400px;
+      height: 400px;
+      background-color: dodgerblue;
+    }*/
+  </style>
+</head>
+<body>
+<div class="box">撩课学院</div>
+</body>
+</html>

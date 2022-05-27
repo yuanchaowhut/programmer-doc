@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+   <div id="app"></div>
+<script src="js/vue.js"></script>
+<script>
+  // 1. 孙组件
+  const lkSon = {
+    setup(){
+      const {inject} = Vue
+      //订阅
+      const bName = inject('brand', '默认值')
+      const bCollege = inject('college')
+
+      return {
+        bName,
+        bCollege
+      }
+    },
+    template: `
+      <div style="width: 200px; height: 200px; background-color: green">
+         {{bName}} ------ {{bCollege}}
+      </div>
+    `
+  }
+
+  // 2. 子组件
+  const lkFather = {
+    components:{
+      'lk-son': lkSon
+    },
+    template: `
+      <div style="width: 400px; height: 400px; background-color: red">
+         父组件
+         <lk-son></lk-son>
+      </div>
+    `
+  }
+
+  const app = Vue.createApp({
+     setup(){
+        const {ref, reactive, provide} = Vue;
+        let brand = ref('撩课')
+        let college = reactive({city: '上海', site: 'itlike.com'})
+
+        // 发射
+        provide('brand', brand)
+        provide('college', college)
+     },
+     components: {
+       'lk-father': lkFather
+     },
+     template: `
+       <lk-father></lk-father>
+     `
+  }).mount('#app');
+</script>
+</body>
+</html>

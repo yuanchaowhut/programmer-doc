@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<div id="app"></div>
+<script src="js/vue.js"></script>
+<script>
+  const LKBox = {
+    props:['num1', 'num2', 'num3', 'num4'],
+    template: `
+      <div>数据1: {{num1}}</div>
+      <div>数据2: {{num2}}</div>
+      <div>数据3: {{num3}}</div>
+      <div>数据4: {{num4}}</div>
+    `
+  };
+
+  const app = Vue.createApp({
+    data() {
+      return {
+         a: 100,
+         b: 200,
+         c: 300,
+         d: 400,
+         numObj: {
+           num1: 100,
+           num2: 200,
+           num3: 300,
+           num4: 400
+         }
+      }
+    },
+    components:{
+      'lk-box': LKBox
+    },
+    template: `
+         <lk-box :num1="a" :num2="b" :num3="c" :num4="d"></lk-box>
+         <p>--------------------------------------------------</p>
+         <lk-box v-bind="numObj"></lk-box>
+         <p>----------------------------------------</p>
+         <lk-box :num1="numObj.num1" :num2="numObj.num2" :num3="numObj.num3" :num4="numObj.num4"></lk-box>
+       `
+  }).mount('#app');
+</script>
+</body>
+</html>

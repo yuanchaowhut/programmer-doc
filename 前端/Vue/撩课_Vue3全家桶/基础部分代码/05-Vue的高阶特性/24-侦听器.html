@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="app"></div>
+<script src="js/vue.js"></script>
+<script>
+    const app = Vue.createApp({
+        setup(props, context) {
+            const {ref, watch} = Vue
+            let brand = ref('')
+            let site = ref('')
+
+            // 侦听器 -- 侦听一个属性
+            /*watch(brand, (currentValue, preValue)=>{
+                // 相应业务
+                console.log('现在的:', currentValue);
+                console.log('之前的:', preValue);
+            }, {})*/
+
+            // 侦听器 -- 侦听多个属性
+            watch([brand, site], ([currentBrand, currentSite], [preBrand, preSite])=>{
+                // 相应业务
+                console.log('现在的:', currentBrand, currentSite);
+                console.log('之前的:', preBrand, preSite);
+            }, {})
+
+            return {
+                brand,
+                site
+            }
+        },
+
+        template:`
+          <div>
+            品牌: <input v-model="brand">
+            <p>输入的品牌是: {{brand}}</p>
+            <p>-------------------------</p>
+            网址: <input v-model="site">
+            <p>输入的网址是: {{site}}</p>
+          </div>
+        `
+    }).mount('#app');
+</script>
+</body>
+</html>

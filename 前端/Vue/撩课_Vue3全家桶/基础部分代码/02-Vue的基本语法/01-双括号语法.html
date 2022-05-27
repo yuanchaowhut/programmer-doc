@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+      <h1>{{ msg }}, itLike.com</h1>
+      <h1>{{msg + ' ' +  site}}</h1>
+      <h1>{{msg}}  {{site}}</h1>
+      <h1>计算: {{count * 2 / 10}}</h1>
+    </div>
+<script src="js/vue.js"></script>
+<script>
+  const app = Vue.createApp({
+    data(){
+      return {
+        msg: '撩课学院',
+        site: 'http://www.itlike.com',
+        count: 2
+      }
+    }
+  }).mount('#app');
+</script>
+</body>
+</html>

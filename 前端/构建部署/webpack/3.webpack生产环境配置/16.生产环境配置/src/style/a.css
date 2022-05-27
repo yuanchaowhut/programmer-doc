@@ -1,0 +1,6 @@
+#box1 {
+    border: 5px solid pink;
+    /*下面两个css属性在特定环境下有css兼容性问题*/
+    display: flex;
+    backface-visibility: hidden;
+}

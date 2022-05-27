@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+    <!--<input type="text" v-model="msg">-->
+    <!--实现-->
+    <!--<input type="text" :value="msg" @input="valueChange">-->
+    <input type="text" :value="msg" @input="msg=$event.target.value">
+    <h1>{{ msg }}</h1>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          msg: '撩课学院'
+        }
+      },
+      methods:{
+        valueChange(event){
+          console.log('-----+++-----');
+          this.msg = event.target.value;
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

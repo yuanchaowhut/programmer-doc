@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+     <h2>{{msg}}</h2>
+     <p>----------指令------------</p>
+     <!--
+     <button v-on:click="msg='撩课学院'">品牌</button>
+     <button v-on:click="msg='http://www.itlike.com'">网址</button>
+     -->
+     <!--改进-->
+    <button v-on:click="brand">品牌</button>
+    <button @click="site">网址</button>
+  </div>
+<script src="js/vue.js"></script>
+<script>
+   const app = Vue.createApp({
+       data(){
+         return {
+            msg: ''
+         }
+       },
+       methods: {
+          // 品牌
+          brand(){
+             // alert('品牌');
+             this.msg = '撩课学院';
+          },
+          // 网址
+          site(){
+            // alert('网址');
+            this.msg = 'http://www.itlike.com';
+          }
+       }
+   }).mount('#app');
+</script>
+</body>
+</html>

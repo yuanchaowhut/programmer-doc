@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="p in personArr">{{p}}</li>
+    </ul>
+    <p>============================</p>
+    <ul>
+      <li v-for="(p, index) in personArr">{{index}} -- {{p}}</li>
+    </ul>
+    <p>============================</p>
+    <ul>
+      <li v-for="(p, index) in persons">{{index}} -- {{p.name}} - {{p.age}} - {{p.address}}</li>
+    </ul>
+  </div>
+<script src="js/vue.js"></script>
+<script>
+  const app = Vue.createApp({
+    data() {
+      return {
+        personArr: ['小撩', 20, '撩课学院'],
+        persons: [
+          {name: '小撩', age: 20, address: '上海'},
+          {name: '中撩', age: 25, address: '北京'},
+          {name: '大撩', age: 30, address: '纽约'},
+        ]
+      }
+    }
+  }).mount('#app');
+</script>
+</body>
+</html>

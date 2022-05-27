@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <!--父组件-->
+  <div id="app" style="background-color: blue; width: 300px; height: 300px;padding: 20px;">
+     <lk-box @box-click="boxFunc"></lk-box>
+  </div>
+
+  <!--子组件-->
+  <template id="box">
+      <div style="background-color: red; width: 200px; height: 200px;">
+          <button @click="btnClick">点我</button>
+      </div>
+  </template>
+
+  <script src="js/vue.js"></script>
+  <script>
+    // 子组件
+    const Box = {
+       setup(props, context){
+           const {emit} = context;
+
+           function btnClick(){
+               alert('点击了');
+               const dataObj = {
+                   name: '撩课',
+                   intro: 'like IT, itLike'
+               };
+               emit('box-click', dataObj);
+           }
+
+           return {
+               btnClick
+           }
+       },
+       template: '#box',
+    };
+
+
+    // 父组件
+    const app = Vue.createApp({
+      data() {
+        return {
+          msg: '撩课学院'
+        }
+      },
+      components:{
+        'lk-box': Box
+      },
+      methods:{
+        boxFunc(item){
+          console.log('子组件中的按钮发生了点击!');
+          console.log(item);
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = Vue.createApp({
+      setup(){
+        const {ref, onBeforeMount, onMounted, onRenderTracked, onRenderTriggered} = Vue;
+        let msg = ref('撩课学院')
+
+        // 1. 在组件内容被渲染到页面之前调用
+        onBeforeMount(()=>{
+          console.log('beforeMount()');
+        })
+
+        onMounted(()=>{
+          console.log('mounted()');
+        })
+
+        // 每次渲染后重新收集响应式依赖
+        onRenderTracked(()=>{
+          console.log('onRenderTracked()')
+        })
+
+        // 每次触发页面重新渲染是自动执行
+        onRenderTriggered(()=>{
+          console.log('onRenderTriggered()');
+        })
+
+        const handleClick = ()=>{
+          msg.value = 'itlike.com'
+        }
+
+        return {
+          msg,
+          handleClick
+        }
+      },
+      template: `
+        <div @click="handleClick()">
+          <h1>{{ msg }}</h1>
+        </div>
+      `
+    });
+
+    app.mount('#app');
+  </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="js/vue.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+           cItem: 'lk-btn'
+        }
+      },
+      methods:{
+        change(){
+          if(this.cItem === 'lk-btn'){
+            this.cItem = 'lk-input';
+          }else {
+            this.cItem = 'lk-btn';
+          }
+        }
+      },
+      template: `
+        <div>
+           <!--
+           <lk-btn v-show="cItem === 'lk-btn'"></lk-btn>
+           <lk-input v-show="cItem === 'lk-input'"></lk-input>
+           失活组件不能被缓存
+           -->
+
+           <keep-alive>
+             <component :is="cItem"></component>
+           </keep-alive>
+           <p>------------------------------------</p>
+           <button @click="change">切换显示</button>
+        <div/>
+      `
+    });
+
+    app.component('lk-btn', {
+       template: `<button>itLike.com</button>`
+    });
+
+    app.component('lk-input', {
+      template: `<input type="text"/>`
+    });
+
+    app.mount('#app');
+  </script>
+</body>
+</html>

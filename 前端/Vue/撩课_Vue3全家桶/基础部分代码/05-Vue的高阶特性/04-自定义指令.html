@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="js/vue.js"></script>
+  <script>
+    /*
+      1. 自定义局部指令
+      2. 自定义全局指令
+    */
+
+    // 自定义局部指令
+    const lkDirective = {
+       focus:{
+         mounted(el) {
+           el.focus();
+         }
+       }
+    };
+
+    const app = Vue.createApp({
+      data() {
+        return {
+          msg: '撩课学院'
+        }
+      },
+      // 挂载局部指令
+      directives: lkDirective,
+      template: `
+       <div>
+         <input placeholder="请输入姓名" v-focus>
+       <div/>
+      `
+    });
+
+    // 自定义全局指令
+   /*
+   app.directive('focus', {
+        mounted(el) {
+          el.focus();
+        }
+    });
+    */
+    app.mount('#app');
+  </script>
+</body>
+</html>

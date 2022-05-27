@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+      <div>{{colleges}}</div>
+      <p>--------------</p>
+      <ul>
+         <li>{{colleges[0]}}</li>
+         <li>{{colleges[1]}}</li>
+         <li>{{colleges[2]}}</li>
+      </ul>
+      <p>-------指令---------</p>
+      <ul>
+        <li v-for="college in colleges">{{college}}</li>
+      </ul>
+  </div>
+<script src="js/vue.js"></script>
+<script>
+    // 1. 创建实例的配置对象
+    const listApp = {
+        data() {
+          return {
+             colleges: ['撩课-Web', '撩课-Python', '撩课-Java']
+          }
+        }
+    };
+    // 2. 创建Vue的实例
+    const app = Vue.createApp(listApp).mount('#app');
+</script>
+</body>
+</html>

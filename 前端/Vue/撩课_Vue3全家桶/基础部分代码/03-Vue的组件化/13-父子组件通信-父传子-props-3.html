@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+    <!--首页-->
+    <div id="home">
+      <span>首页</span>
+      <lk-box :brand="{name: '张三'}" :colleges="['VR', 'AR']"></lk-box>
+    </div>
+    <!--消息-->
+    <div id="msg">
+      <span>消息</span>
+      <lk-box brand="谷歌" colleges="Java"></lk-box>
+    </div>
+    <!--我的-->
+    <div id="mine">
+      <span>我的</span>
+      <lk-box brand="撩课" ></lk-box>
+    </div>
+  </div>
+
+<script src="js/vue.js"></script>
+<script>
+  // 创建局部组件
+  const Box = {
+    // 接收数据
+    props: {
+       brand: String,
+       colleges: Array
+    },
+    template: `
+         <div>
+            <p>--------------------</p>
+            <h1>{{brand}}</h1>
+            <ul>
+              <li v-for="item in colleges">{{item}}</li>
+            </ul>
+            <p>--------------------</p>
+         </div>
+      `
+  };
+
+  const app = Vue.createApp({
+    data() {
+      return {
+
+      }
+    },
+    components: {
+      'lk-box': Box
+    }
+  }).mount('#app');
+</script>
+</body>
+</html>
