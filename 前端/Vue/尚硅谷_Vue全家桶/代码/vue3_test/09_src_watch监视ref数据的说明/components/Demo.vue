@@ -19,9 +19,9 @@
 		name: 'Demo',
 		setup(){
 			//数据
-			let sum = ref(0)
-			let msg = ref('你好啊')
-			let person = ref({
+			let sum = ref(0);       // 这里是用ref定义基本类型数据，sum是一个RefImpl对象，sum.value是一个常量值.
+			let msg = ref('你好啊');
+			let person = ref({      // 这里是用ref定义引用类型数据，person也是RefImpl对象，但person.value是Proxy对象.
 				name:'张三',
 				age:18,
 				job:{
@@ -33,10 +33,18 @@
 
 			console.log(person)
 
+      // 这里不能用sum.value，因为sum是基本数据类型，sum.value 是一个常量值，不能被监视.
 			watch(sum,(newValue,oldValue)=>{
 				console.log('sum的值变化了',newValue,oldValue)
 			})
 
+      // 如果不开启 deep:true，则这里必须监视 person.value 才能监测到name、age等数据的变化，
+      // person是一个引用类型数据，person.value 是Proxy对象，是ref函数内部调用reactive函数生成的。
+      watch(person.value,(newValue,oldValue)=>{
+        console.log('person的值变化了',newValue,oldValue)
+      })
+
+      // 如果开启了 deep:true，则这里可以直接监视person
 			watch(person,(newValue,oldValue)=>{
 				console.log('person的值变化了',newValue,oldValue)
 			},{deep:true})

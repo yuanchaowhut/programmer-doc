@@ -1,4 +1,4 @@
-# 笔记
+# Vue2.0全家桶学习笔记
 
 ## 脚手架文件结构
 
@@ -19,6 +19,8 @@
 	├── README.md: 应用描述文件
 	├── package-lock.json：包版本控制文件
 
+
+
 ## 关于不同版本的Vue
 
 1. vue.js与vue.runtime.xxx.js的区别：
@@ -26,10 +28,14 @@
     2. vue.runtime.xxx.js是运行版的Vue，只包含：核心功能；没有模板解析器。
 2. 因为vue.runtime.xxx.js没有模板解析器，所以不能使用template这个配置项，需要使用render函数接收到的createElement函数去指定具体内容。
 
+
+
 ## vue.config.js配置文件
 
 1. 使用vue inspect > output.js可以查看到Vue脚手架的默认配置。
 2. 使用vue.config.js可以对脚手架进行个性化定制，详情见：https://cli.vuejs.org/zh
+
+
 
 ## ref属性
 
@@ -38,6 +44,8 @@
 3. 使用方式：
     1. 打标识：```<h1 ref="xxx">.....</h1>``` 或 ```<School ref="xxx"></School>```
     2. 获取：```this.$refs.xxx```
+
+
 
 ## props配置项
 
@@ -65,6 +73,8 @@
 
     > 备注：props是只读的，Vue底层会监测你对props的修改，如果进行了修改，就会发出警告，若业务需求确实需要修改，那么请复制props的内容到data中一份，然后去修改data中的数据。
 
+
+
 ## mixin(混入)
 
 1. 功能：可以把多个组件共用的配置提取成一个混入对象
@@ -85,6 +95,204 @@
 
     ​	全局混入：```Vue.mixin(xxx)```
     ​	局部混入：```mixins:['xxx']	```
+
+3. 案例一：基本使用
+
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title></title>
+    </head>
+    <body>
+      <div id="app1"></div>
+      <div id="app2"></div>
+      <script src="js/vue.js"></script>
+      <script>
+        // 定义一个mixin对象
+        const myMixin = {
+          data() {
+            return {
+              msg: '撩课学院'
+            }
+          },
+          methods:{
+            hello(){
+              alert('hello, 撩课学院');
+            }
+          },
+        };
+    
+        const app1 = Vue.createApp({
+          mixins: [myMixin],
+          template: `
+            <div>
+               <h1>{{msg}}</h1>
+               <button @click="hello">打个招呼</button>
+            </div>
+          `
+        });
+        app1.mount('#app1');
+    
+    
+        const app2 = Vue.createApp({
+          mixins: [myMixin],
+          template: `
+            <div>
+               <h1>{{msg}}</h1>
+               <button @click="hello">打个招呼</button>
+            </div>
+          `
+        });
+        app2.mount('#app2');
+      </script>
+    </body>
+    </html>
+    ```
+
+4. 案例二：实例中的data, methods之类的选项优先级高于 mixin中 定义的，对于生命周期函数, 先执行 mixin 中的, 然后执行实例中的
+
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title></title>
+    </head>
+    <body>
+      <div id="app1"></div>
+      <p>-----------------------------------------</p>
+      <div id="app2"></div>
+      <script src="js/vue.js"></script>
+      <script>
+        // 定义一个mixin对象
+        /*
+          1. 实例中的data, methods之类的选项 优先级高于 mixin中 定义的
+          2. 对于 生命周期函数, 先执行 mixin 中的, 然后执行实例中的
+        */
+        const myMixin = {
+          data() {
+            return {
+              msg: '撩课学院'
+            }
+          },
+          methods:{
+            hello(){
+              alert('hello, 撩课学院');
+            }
+          },
+          mounted(){
+            console.log('++++++++++++++++++实例完成+++++++++++++++++++');
+          }
+        };
+    
+        const app1 = Vue.createApp({
+          mounted(){
+             console.log('----------------实例完成----------------');
+          },
+          data(){
+            return {
+               msg: 'itLike.com'
+            }
+          },
+          mixins: [myMixin],
+          methods:{
+            hello(){
+                alert('哈哈哈哈');
+             }
+          },
+          template: `
+            <div>
+               <h1>{{msg}}</h1>
+               <button @click="hello">打个招呼</button>
+            </div>
+          `
+        });
+        app1.mount('#app1');
+    
+    
+      /*  const app2 = Vue.createApp({
+          mixins: [myMixin],
+          template: `
+            <div>
+               <h1>{{msg}}</h1>
+               <button @click="hello">打个招呼</button>
+            </div>
+          `
+        });
+        app2.mount('#app2');*/
+      </script>
+    </body>
+    </html>
+    ```
+
+5. 案例三：自定义属性有冲突，通过配置决定使用哪个里面的属性。
+
+     app.config.optionMergeStrategies.age = (mixinVal, appValue)=>{
+            return  appValue || mixinVal;
+     };
+
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title></title>
+    </head>
+    <body>
+      <div id="app1"></div>
+      <script src="js/vue.js"></script>
+      <script>
+        // 定义一个mixin对象
+        const myMixin = {
+            // 自定义属性
+            age: 100
+        };
+    
+        const app1 = Vue.createApp({
+          mounted(){
+             console.log(this.$options);
+          },
+          data(){
+            return {
+               msg: 'itLike.com'
+            }
+          },
+          age: 99,
+          mixins: [myMixin],
+          methods:{
+            hello(){
+                alert('哈哈哈哈');
+             }
+          },
+          template: `
+            <div>
+               <h1>{{msg}}</h1>
+               <div>{{this.$options.age}}</div>
+               <button @click="hello">打个招呼</button>
+            </div>
+          `
+        });
+    
+        // 通过配置决定使用哪个里面的属性
+        app1.config.optionMergeStrategies.age = (mixinVal, appValue)=>{
+            return  appValue || mixinVal;
+        };
+    
+        app1.mount('#app1');
+    
+        // 全局配置mixin
+        app1.mixin({
+    
+        });
+    
+      </script>
+    </body>
+    </html>
+    ```
+
+    
 
 ## 插件
 
@@ -113,10 +321,14 @@
 
 4. 使用插件：```Vue.use()```
 
+
+
 ## scoped样式
 
 1. 作用：让样式在局部生效，防止冲突。
 2. 写法：```<style scoped>```
+
+
 
 ## 总结TodoList案例
 
@@ -141,6 +353,8 @@
 3. 使用v-model时要切记：v-model绑定的值不能是props传过来的值，因为props是不可以修改的！
 
 4. props传过来的若是对象类型的值，修改对象中的属性时Vue不会报错，但不推荐这样做。
+
+
 
 ## webStorage
 
@@ -172,6 +386,8 @@
     3. ```xxxxxStorage.getItem(xxx)```如果xxx对应的value获取不到，那么getItem的返回值是null。
     4. ```JSON.parse(null)```的结果依然是null。
 
+
+
 ## 组件的自定义事件
 
 1. 一种组件间通信的方式，适用于：<strong style="color:red">子组件 ===> 父组件</strong>
@@ -201,6 +417,8 @@
 6. 组件上也可以绑定原生DOM事件，需要使用```native```修饰符。
 
 7. 注意：通过```this.$refs.xxx.$on('atguigu',回调)```绑定自定义事件时，回调<span style="color:red">要么配置在methods中</span>，<span style="color:red">要么用箭头函数</span>，否则this指向会出问题！
+
+
 
 ## 全局事件总线（GlobalEventBus）
 
@@ -236,6 +454,8 @@
 
 4. 最好在beforeDestroy钩子中，用$off去解绑<span style="color:red">当前组件所用到的</span>事件。
 
+
+
 ## 消息订阅与发布（pubsub）
 
 1.   一种组件间通信的方式，适用于<span style="color:red">任意组件间通信</span>。
@@ -262,17 +482,24 @@
 
    5. 最好在beforeDestroy钩子中，用```PubSub.unsubscribe(pid)```去<span style="color:red">取消订阅。</span>
 	
+
+
+
 ## nextTick
 
 1. 语法：```this.$nextTick(回调函数)```
 2. 作用：在下一次 DOM 更新结束后执行其指定的回调。
 3. 什么时候用：当改变数据后，要基于更新后的新DOM进行某些操作时，要在nextTick所指定的回调函数中执行。
 
+
+
 ## Vue封装的过度与动画
 
 1. 作用：在插入、更新或移除 DOM元素时，在合适的时候给元素添加样式类名。
 
-2. 图示：<img src="https://img04.sogoucdn.com/app/a/100520146/5990c1dff7dc7a8fb3b34b4462bd0105" style="width:60%" />
+2. 图示
+
+   ![image-20220528193130785](https://yuanchaowhut.oss-cn-hangzhou.aliyuncs.com/images/202205281931811.png)
 
 3. 写法：
 
@@ -296,6 +523,136 @@
       ```
 
    3. 备注：若有多个元素需要过度，则需要使用：```<transition-group>```，且每个元素都要指定```key```值。
+
+4. 示例代码【使用Css3动画、使用过渡transition、使用第三方库 animate.css】
+
+   ```vue
+   <!-- 使用动画 animation -->
+   <template>
+   	<div>
+   		<button @click="isShow = !isShow">显示/隐藏</button>
+   		<transition name="hello" appear>
+   			<h1 v-show="isShow">你好啊！</h1>
+   		</transition>
+   	</div>
+   </template>
+   
+   <script>
+   	export default {
+   		name:'Test',
+   		data() {
+   			return {
+   				isShow:true
+   			}
+   		},
+   	}
+   </script>
+   
+   <style scoped>
+   	h1{
+   		background-color: orange;
+   	}
+   
+   	.hello-enter-active{
+   		animation: atguigu 0.5s linear;
+   	}
+   
+   	.hello-leave-active{
+   		animation: atguigu 0.5s linear reverse;
+   	}
+   
+   	@keyframes atguigu {
+   		from{
+   			transform: translateX(-100%);
+   		}
+   		to{
+   			transform: translateX(0px);
+   		}
+   	}
+   </style>
+   
+   
+   <!-- 使用过渡 transition -->
+   <template>
+   	<div>
+   		<button @click="isShow = !isShow">显示/隐藏</button>
+   		<transition-group name="hello" appear>
+   			<h1 v-show="!isShow" key="1">你好啊！</h1>
+   			<h1 v-show="isShow" key="2">尚硅谷！</h1>
+   		</transition-group>
+   	</div>
+   </template>
+   
+   <script>
+   	export default {
+   		name:'Test',
+   		data() {
+   			return {
+   				isShow:true
+   			}
+   		},
+   	}
+   </script>
+   
+   <style scoped>
+   	h1{
+   		background-color: orange;
+   	}
+   	/* 进入的起点、离开的终点 */
+   	.hello-enter,.hello-leave-to{
+   		transform: translateX(-100%);
+   	}
+   	.hello-enter-active,.hello-leave-active{
+   		transition: 0.5s linear;
+   	}
+   	/* 进入的终点、离开的起点 */
+   	.hello-enter-to,.hello-leave{
+   		transform: translateX(0);
+   	}
+   
+   </style>
+   
+   
+   <!-- 使用第三方动画库 animate.css -->
+   <template>
+   	<div>
+   		<button @click="isShow = !isShow">显示/隐藏</button>
+   		<transition-group
+   			appear
+   			name="animate__animated animate__bounce"
+   			enter-active-class="animate__swing"
+   			leave-active-class="animate__backOutUp"
+   		>
+   			<h1 v-show="!isShow" key="1">你好啊！</h1>
+   			<h1 v-show="isShow" key="2">尚硅谷！</h1>
+   		</transition-group>
+   	</div>
+   </template>
+   
+   <script>
+     // 官网：https://animate.style/
+   	import 'animate.css'
+   
+   	export default {
+   		name:'Test',
+   		data() {
+   			return {
+   				isShow:true
+   			}
+   		},
+   	}
+   </script>
+   
+   <style scoped>
+   	h1{
+   		background-color: orange;
+   	}
+   
+   
+   </style>
+   ```
+
+   
 
 ## vue脚手架配置代理
 
@@ -347,6 +704,8 @@ module.exports = {
 
 1. 优点：可以配置多个代理，且可以灵活的控制请求是否走代理。
 2. 缺点：配置略微繁琐，请求资源时必须加前缀。
+
+
 
 ## 插槽
 
@@ -404,6 +763,8 @@ module.exports = {
          ```vue
          父组件中：
          		<Category>
+               <!--1.这里必须使用template，不可省略否则报错-->
+               <!--2.这里用scope或slot-scope都可以，slot-scope新一点-->
          			<template scope="scopeData">
          				<!-- 生成的是ul列表 -->
          				<ul>
@@ -438,9 +799,8 @@ module.exports = {
                      }
                  </script>
          ```
-   ```
-   
-   ```
+
+
 
 ## Vuex
 
@@ -497,7 +857,7 @@ module.exports = {
 
 ###    4.基本使用
 
-1. 初始化数据、配置```actions```、配置```mutations```，操作文件```store.js```
+1. 初始化数据、配置```actions```、配置```mutations```，操作文件```store.js```。注意：action函数第1个参数context 是一个minStore（即不完整的store），它包含dispatch、commit等方法。 
 
    ```js
    //引入Vue核心库
@@ -508,7 +868,7 @@ module.exports = {
    Vue.use(Vuex)
    
    const actions = {
-       //响应组件中加的动作
+       //响应组件中加的动作。context 是一个minStore（即不完整的store），它包含dispatch、commit等方法。
    	jia(context,value){
    		// console.log('actions中的jia被调用了',miniStore,value)
    		context.commit('JIA',value)
@@ -542,6 +902,8 @@ module.exports = {
 
    >  备注：若没有网络请求或其他业务逻辑，组件中也可以越过actions，即不写```dispatch```，直接编写```commit```
 
+
+
 ### 5.getters的使用
 
 1. 概念：当state中的数据需要经过加工后再使用时，可以使用getters加工。
@@ -565,6 +927,8 @@ module.exports = {
    ```
 
 3. 组件中读取数据：```$store.getters.bigSum```
+
+
 
 ### 6.四个map方法的使用
 
@@ -617,6 +981,8 @@ module.exports = {
    ```
 
 > 备注：mapActions与mapMutations使用时，若需要传递参数需要：在模板中绑定事件时传递好参数，否则参数是事件对象。
+
+
 
 ### 7.模块化+命名空间
 
@@ -688,6 +1054,8 @@ module.exports = {
    ...mapMutations('countAbout',{increment:'JIA',decrement:'JIAN'}),
    ```
 
+
+
  ## 路由
 
 1. 理解： 一个路由（route）就是一组映射关系（key - value），多个路由需要路由器（router）进行管理。
@@ -738,12 +1106,16 @@ module.exports = {
    <router-view></router-view>
    ```
 
+
+
 ### 2.几个注意点
 
 1. 路由组件通常存放在```pages```文件夹，一般组件通常存放在```components```文件夹。
 2. 通过切换，“隐藏”了的路由组件，默认是被销毁掉的，需要的时候再去挂载。
 3. 每个组件都有自己的```$route```属性，里面存储着自己的路由信息。
 4. 整个应用只有一个router，可以通过组件的```$router```属性获取到。
+
+
 
 ### 3.多级路由（多级路由）
 
@@ -778,6 +1150,8 @@ module.exports = {
    <router-link to="/home/news">News</router-link>
    ```
 
+
+
 ### 4.路由的query参数
 
 1. 传递参数
@@ -792,7 +1166,7 @@ module.exports = {
    		path:'/home/message/detail',
    		query:{
    		   id:666,
-               title:'你好'
+          title:'你好'
    		}
    	}"
    >跳转</router-link>
@@ -804,6 +1178,8 @@ module.exports = {
    $route.query.id
    $route.query.title
    ```
+
+
 
 ### 5.命名路由
 
@@ -823,7 +1199,7 @@ module.exports = {
       			component:Test,
       			children:[
       				{
-                            name:'hello' //给路由命名
+                name:'hello' //给路由命名
       					path:'welcome',
       					component:Hello,
       				}
@@ -853,6 +1229,8 @@ module.exports = {
       	}"
       >跳转</router-link>
       ```
+
+
 
 ### 6.路由的params参数
 
@@ -893,7 +1271,7 @@ module.exports = {
    		name:'xiangqing',
    		params:{
    		   id:666,
-               title:'你好'
+          title:'你好'
    		}
    	}"
    >跳转</router-link>
@@ -907,6 +1285,8 @@ module.exports = {
    $route.params.id
    $route.params.title
    ```
+
+
 
 ### 7.路由的props配置
 
@@ -934,11 +1314,31 @@ module.exports = {
 }
 ```
 
+
+
 ### 8.```<router-link>```的replace属性
 
 1. 作用：控制路由跳转时操作浏览器历史记录的模式
+
 2. 浏览器的历史记录有两种写入方式：分别为```push```和```replace```，```push```是追加历史记录，```replace```是替换当前记录。路由跳转时候默认为```push```
+
 3. 如何开启```replace```模式：```<router-link replace .......>News</router-link>```
+
+   ```html
+   <div>
+   	<ul class="nav nav-tabs">
+   		<li>
+   			<router-link replace class="list-group-item" active-class="active" to="/home/news">News</router-link>
+   		</li>
+   		<li>
+   			<router-link replace class="list-group-item" active-class="active" to="/home/message">Message</router-link>
+   			</li>
+   	</ul>
+     <router-view></router-view>
+   </div>
+   ```
+
+   
 
 ### 9.编程式路由导航
 
@@ -968,6 +1368,8 @@ module.exports = {
    this.$router.go() //可前进也可后退
    ```
 
+
+
 ### 10.缓存路由组件
 
 1. 作用：让不展示的路由组件保持挂载，不被销毁。
@@ -975,17 +1377,52 @@ module.exports = {
 2. 具体编码：
 
    ```vue
-   <keep-alive include="News"> 
-       <router-view></router-view>
+   <!-- 缓存所有路由组件 -->
+   <keep-alive>
+   	<router-view></router-view>
+   </keep-alive>
+   
+   <!-- 缓存一个路由组件 注意：include的值是组件名不是路由名 -->
+   <keep-alive include="News">
+   	<router-view></router-view>
+   </keep-alive>
+   
+   <!-- 缓存多个路由组件 -->
+   <keep-alive :include="['News','Message']">
+   	<router-view></router-view>
    </keep-alive>
    ```
 
+
+
 ### 11.两个新的生命周期钩子
 
-1. 作用：路由组件所独有的两个钩子，用于捕获路由组件的激活状态。
+1. 作用：**路由组件所独有的两个钩子**，用于捕获路由组件的激活状态。
+
 2. 具体名字：
-   1. ```activated```路由组件被激活时触发。
-   2. ```deactivated```路由组件失活时触发。
+
+   ```activated```路由组件被激活时触发。
+
+   ```deactivated```路由组件失活时触发。
+
+3. 场景，当某个页面被 vue-router 缓存 <keep-alive> 时，除第一次挂载外，之后再进入组件不会触发mounted 等钩子函数，但是我们的逻辑又必须在进入页面后执行，这时就可以用到。
+
+   ```js
+   activated() {
+   	console.log('News组件被激活了')
+   	this.timer = setInterval(() => {
+   		console.log('@')
+   		this.opacity -= 0.01
+   		if(this.opacity <= 0) this.opacity = 1
+   	},16)
+   },
+   deactivated() {
+   	console.log('News组件失活了')
+   	clearInterval(this.timer)
+   },
+   ```
+
+   
 
 ### 12.路由守卫
 
@@ -993,7 +1430,7 @@ module.exports = {
 
 2. 分类：全局守卫、独享守卫、组件内守卫
 
-3. 全局守卫:
+3. 全局守卫: 全局守卫一般写在创建完 router 示例后设置。 
 
    ```js
    //全局前置守卫：初始化时执行、每次路由切换前执行
@@ -1022,25 +1459,30 @@ module.exports = {
    })
    ```
 
-4. 独享守卫:
+4. 独享守卫: 独享守卫写在单个路由对象里边，作为它的一个扩展方法。
 
    ```js
-   beforeEnter(to,from,next){
-   	console.log('beforeEnter',to,from)
-   	if(to.meta.isAuth){ //判断当前路由是否需要进行权限控制
-   		if(localStorage.getItem('school') === 'atguigu'){
-   			next()
-   		}else{
-   			alert('暂无权限查看')
-   			// next({name:'guanyu'})
+   {
+   		name:'xinwen',
+   		path:'news',
+   		component:News,
+   		meta:{isAuth:true,title:'新闻'},
+   		beforeEnter: (to, from, next) => {
+   			 console.log('独享路由守卫',to,from)
+   			 if(to.meta.isAuth){ //判断是否需要鉴权
+   				 if(localStorage.getItem('school')==='atguigu'){
+   					  next()
+   					}else{
+   						alert('学校名不对，无权限查看！')
+   					}
+   				}else{
+   						next()
+   				}
    		}
-   	}else{
-   		next()
-   	}
-   }
+   },
    ```
 
-5. 组件内守卫：
+5. 组件内守卫：组件内守卫顾名思义应写在组件里边。
 
    ```js
    //进入守卫：通过路由规则，进入该组件时被调用
@@ -1049,11 +1491,45 @@ module.exports = {
    //离开守卫：通过路由规则，离开该组件时被调用
    beforeRouteLeave (to, from, next) {
    }
+   
+   
+   <template>
+   	<h2>我是About的内容</h2>
+   </template>
+   
+   <script>
+   	export default {
+   		name:'About',
+   		mounted() {
+   			// console.log('%%%',this.$route)
+   		},
+   
+   		//通过路由规则，进入该组件时被调用，即 router 文件中配置了路由的组件。
+   		beforeRouteEnter (to, from, next) {
+   			console.log('About--beforeRouteEnter',to,from)
+   			if(to.meta.isAuth){ //判断是否需要鉴权
+   				if(localStorage.getItem('school')==='atguigu'){
+   					next()
+   				}else{
+   					alert('学校名不对，无权限查看！')
+   				}
+   			}else{
+   				next()
+   			}
+   		},
+   
+   		//通过路由规则，离开该组件时被调用，即 router 文件中配置了路由的组件。
+   		beforeRouteLeave (to, from, next) {
+   			console.log('About--beforeRouteLeave',to,from)
+   			next()
+   		}
+   	}
+   </script>
    ```
 
+
+
 ### 13.路由器的两种工作模式
-
-
 
 1. 对于一个url来说，什么是hash值？—— #及其后面的内容就是hash值。
 2. hash值不会包含在 HTTP 请求中，即：hash值不会带给服务器。
@@ -1065,5 +1541,86 @@ module.exports = {
    1. 地址干净，美观 。
    2. 兼容性和hash模式相比略差。
    3. 应用部署上线时需要后端人员支持，解决刷新页面服务端404的问题。
+	
+	
+	
+	```js
+	// 设置 mode 路由模式
+	const router =  new VueRouter({
+	   mode:'history',
+	   routes:[
+	      {
+	         name:'guanyu',
+	         path:'/about',
+	         component:About,
+	         meta:{isAuth:true,title:'关于'}
+	      }]
+	   }
+	)
+	```
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	 
-	 
+	
+	

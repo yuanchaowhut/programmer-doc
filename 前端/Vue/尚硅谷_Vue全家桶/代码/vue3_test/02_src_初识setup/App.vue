@@ -21,6 +21,7 @@
 	// import {h} from 'vue'
 	export default {
 		name: 'App',
+    // vue3是向下兼容的，vue文件里还可以使用 data、methods 等
 		data() {
 			return {
 				sex:'男',
@@ -38,7 +39,8 @@
 				console.log(this.sayHello)
 			}
 		},
-		//此处只是测试一下setup，暂时不考虑响应式的问题。
+
+		//setup里的数据和方法template里都能识别到
 		async setup(){
 			//数据
 			let name = '张三'

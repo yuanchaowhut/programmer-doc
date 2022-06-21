@@ -4,7 +4,7 @@
 import Vue from 'vue'
 //引入App
 // import App from './App.vue'
-import App from '../17_src_过度与动画/App'
+import App from '../22_插槽/1_src_默认插槽/App'
 
 //完整引入
 //引入ElementUI组件库

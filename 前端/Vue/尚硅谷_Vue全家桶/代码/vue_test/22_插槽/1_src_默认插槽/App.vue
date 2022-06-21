@@ -11,7 +11,7 @@
 		</Category>
 
 		<Category title="电影">
-			<video controls src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"></video>
+			<video controls src="http://vjs.zencdn.net/v/oceans.mp4"></video>
 		</Category>
 	</div>
 </template>
